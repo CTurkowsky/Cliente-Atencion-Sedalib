@@ -35,25 +35,49 @@ export const RegisterUsuarioPage = () => {
     reset()
   }
   return (
-    <>
-      <h2>Register Page</h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input type='text' placeholder='Nombre' {...register('nombre')} />
-        <input type='text' placeholder='Apellidos' {...register('apellidos')} />
-        <input type='text' placeholder='Correo' {...register('email')} />
-        <input
-          type='password'
-          placeholder={isEditing ? 'Nueva Contraseña' : 'Contraseña'}
-          {...register('password')}
-        />
-        <select className='' {...register('modalidad')}>
-          <option value="telefono">Telefono</option>
-          <option value="rrss">RRSS</option>
-        </select>
-        <button className=''>
-          {isEditing ? 'Guardar Cambios' : 'Registrar'}
-        </button>
-      </form>
-    </>
+    <div className='mx-auto  px-4 py-16 sm:px-6 lg:px-8'>
+      <div className='mx-auto  bg-white p-8 rounded-lg shadow-lg max-w-md w-full'>
+        <h2 className='text-xl font-semibold mb-4 text-center'> {isEditing ? 'Editar Usuario' : 'Registrar Usuario'}</h2>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <input
+            className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
+            type='text'
+            placeholder='Nombre'
+            {...register('nombre')}
+          />
+          <input
+            className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
+            type='text'
+            placeholder='Apellidos'
+            {...register('apellidos')}
+          />
+          <input
+            className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
+            type='text'
+            placeholder='Correo'
+            {...register('email')}
+          />
+          <input
+            className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
+            type='password'
+            placeholder={isEditing ? 'Nueva Contraseña' : 'Contraseña'}
+            {...register('password')}
+          />
+          <div className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'>
+            <label>Modalidad</label>
+            <select
+              className=' w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm'
+              {...register('modalidad')}
+            >
+              <option value='telefono'>Telefono</option>
+              <option value='rrss'>RRSS</option>
+            </select>
+          </div>
+          <button className='block w-full rounded-lg mt-4 px-5 py-3 text-sm font-medium  text-white   bg-breaker-bay-500 hover:bg-breaker-bay-600 active:bg-breaker-bay-700'>
+            {isEditing ? 'Guardar Cambios' : 'Registrar'}
+          </button>
+        </form>
+      </div>
+    </div>
   )
 }

@@ -25,10 +25,10 @@ export const AtencionListPage = () => {
   const [previousPage, setPreviousPage] = useState(1)
   const [totalViewing, setTotalViewing] = useState(0)
   useEffect(() => {
-  // Código que se ejecuta cuando el componente se monta
+    // Código que se ejecuta cuando el componente se monta
 
     return () => {
-    // Código que se ejecuta cuando el componente se desmonta
+      // Código que se ejecuta cuando el componente se desmonta
       clearAtenciones()
     }
   }, [])
@@ -174,42 +174,71 @@ export const AtencionListPage = () => {
   }
   return (
     <>
-      <h2>AtencionListPage</h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <h2 className='text-2xl  mb-4 text-center'>Lista de Atenciones</h2>
+      <form
+        onSubmit={handleSubmit(onSubmit)}
+        className='flex flex-row justify-center items-center mb-4'
+      >
         <input
           type='date'
           placeholder='fecha_inicio'
           {...register('fecha_inicio')}
+          className='border p-2 mr-2'
         />
-        <input type='date' placeholder='fecha_fin' {...register('fecha_fin')} />
-        <button>Buscar</button>
+        <input
+          type='date'
+          placeholder='fecha_fin'
+          {...register('fecha_fin')}
+          className='border p-2 mr-2'
+        />
+        <button className=' bg-breaker-bay-500 hover:bg-breaker-bay-600 active:bg-breaker-bay-700 text-white font-bold py-2 px-4 rounded'>
+          Buscar
+        </button>
+
       </form>
-      <button onClick={clearAtenciones}>Limpiar</button>
+  <button
+          onClick={clearAtenciones}
+          className='bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mb-4'
+        >
+          Limpiar
+        </button>
       {atenciones?.length === 0
         ? (
-        <div className=''>Selecciona un filtro de busqueda!</div>
+        <div className='text-red-500 text-center'>
+          Selecciona un filtro de busqueda!
+        </div>
           )
         : (
         <>
-          <button onClick={exportToExcel}>Exportar a Excel</button>
+          <button
+            onClick={exportToExcel}
+            className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mb-4'
+          >
+            Exportar a Excel
+          </button>
           <Table atenciones={atenciones} />
-          <p>
+          <p className='mt-4 text-center'>
             Estas viendo {totalViewing} registros de {allAtenciones.length}
           </p>
         </>
           )}
-      <>
+      <div className='flex justify-center mt-4'>
         <button
           onClick={() => changePage(currentPage - 1)}
           disabled={currentPage === 1}
+          className=' bg-breaker-bay-500 hover:bg-breaker-bay-600 active:bg-breaker-bay-700 text-white font-bold py-2 px-4 rounded mr-2'
         >
           Anterior
         </button>
-        <span>Página {currentPage}</span>
-        <button onClick={() => changePage(currentPage + 1)} disabled={!hasMore}>
+        <span className='mr-2'>Página {currentPage}</span>
+        <button
+          onClick={() => changePage(currentPage + 1)}
+          disabled={!hasMore}
+          className=' bg-breaker-bay-500 hover:bg-breaker-bay-600 active:bg-breaker-bay-700 text-white font-bold py-2 px-4 rounded'
+        >
           Siguiente
         </button>
-      </>
+      </div>
     </>
   )
 }
