@@ -1,5 +1,5 @@
-// TODO: Arreglar  registros ya vistos y carga de todos los registros
-import { useState } from 'react'
+// TODO: Arreglar   carga de todos los registros
+import { useEffect, useState } from 'react'
 import { useAtencionStore } from '../../hooks'
 import { useForm } from 'react-hook-form'
 import { saveAs } from 'file-saver'
@@ -23,6 +23,22 @@ export const AtencionListPage = () => {
     clearAtenciones
   } = useAtencionStore()
   const [allAtenciones, setAllAtenciones] = useState([])
+  const [previousPage, setPreviousPage] = useState(1)
+  const [totalViewing, setTotalViewing] = useState(0)
+
+  useEffect(() => {
+    // Cuando la página cambia, actualiza totalViewing
+    if (currentPage === 1) {
+      setTotalViewing(atenciones?.length || 0)
+    } else if (currentPage > previousPage) {
+      setTotalViewing(totalViewing + (atenciones?.length || 0))
+    } else if (currentPage < previousPage) {
+      setTotalViewing(totalViewing - (atenciones?.length || 0))
+    }
+
+    // Actualiza previousPage para la próxima vez que currentPage cambie
+    setPreviousPage(currentPage)
+  }, [currentPage, atenciones?.length])
 
   const getAllAtenciones = async (fromDate, toDate) => {
     try {
@@ -33,7 +49,7 @@ export const AtencionListPage = () => {
     }
   }
   const changePage = async (newPage) => {
-  // Si la nueva página es menor que 0, no hagas nada
+    // Si la nueva página es menor que 0, no hagas nada
     if (newPage < 0) return
 
     // Carga los datos de la nueva página y espera a que termine
@@ -172,8 +188,7 @@ export const AtencionListPage = () => {
           <button onClick={exportToExcel}>Exportar a Excel</button>
           <Table atenciones={atenciones} />
           <p>
-            Estas viendo {atenciones?.length} registros de{' '}
-            {allAtenciones.length}
+            Estas viendo {totalViewing} registros de {allAtenciones.length}
           </p>
         </>
           )}
