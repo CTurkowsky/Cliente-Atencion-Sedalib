@@ -1,4 +1,3 @@
-// TODO : Arreglar select de categorias y subcategorias en modo edicion
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
@@ -20,6 +19,26 @@ export const RegisterAtencionPage = () => {
   const navigate = useNavigate()
   useEffect(() => {
     const fetchAtencion = async () => {
+      //   const atencionData = await getAtencion(id)
+      //   for (const field in atencionData) {
+      //     if (field === 'fecha') {
+      //       setValue(
+      //         field,
+      //         new Date(atencionData[field]).toISOString().slice(0, 10)
+      //       )
+      //     } else {
+      //       setValue(field, atencionData[field])
+      //     }
+      //   }
+      // }
+
+      // if (id) {
+      //   setIsEditing(true)
+      //   fetchAtencion()
+      // } else {
+      //   setIsEditing(false)
+      //   // reset()
+      // }
       const atencionData = await getAtencion(id)
       for (const field in atencionData) {
         if (field === 'fecha') {
@@ -31,6 +50,13 @@ export const RegisterAtencionPage = () => {
           setValue(field, atencionData[field])
         }
       }
+
+      // Establecer el valor de los campos select
+      setValue('departamento', atencionData.departamento)
+      setValue('provincia', atencionData.provincia)
+      setValue('distrito', atencionData.distrito)
+      setValue('categoria', atencionData.categoria)
+      setValue('sub_categoria', atencionData.sub_categoria)
     }
 
     if (id) {
@@ -38,7 +64,6 @@ export const RegisterAtencionPage = () => {
       fetchAtencion()
     } else {
       setIsEditing(false)
-      // reset()
     }
   }, [id, getAtencion, setValue])
 
@@ -227,9 +252,11 @@ export const RegisterAtencionPage = () => {
                   {...register('numero_atencion', { required: true })}
                 />
               </div>
-              <button type='submit' onClick={generateAtencion} className=''>
-                Generar Atencion
-              </button>
+              {!isEditing && (
+                <button type='submit' onClick={generateAtencion} className=''>
+                  Generar Atencion
+                </button>
+              )}
             </div>
             <div>
               <div className=''>
