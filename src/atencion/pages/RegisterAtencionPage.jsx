@@ -19,26 +19,6 @@ export const RegisterAtencionPage = () => {
   const navigate = useNavigate()
   useEffect(() => {
     const fetchAtencion = async () => {
-      //   const atencionData = await getAtencion(id)
-      //   for (const field in atencionData) {
-      //     if (field === 'fecha') {
-      //       setValue(
-      //         field,
-      //         new Date(atencionData[field]).toISOString().slice(0, 10)
-      //       )
-      //     } else {
-      //       setValue(field, atencionData[field])
-      //     }
-      //   }
-      // }
-
-      // if (id) {
-      //   setIsEditing(true)
-      //   fetchAtencion()
-      // } else {
-      //   setIsEditing(false)
-      //   // reset()
-      // }
       const atencionData = await getAtencion(id)
       for (const field in atencionData) {
         if (field === 'fecha') {
@@ -101,6 +81,8 @@ export const RegisterAtencionPage = () => {
       } else {
         console.log(newData)
         await startSavingAtencion(newData)
+        reset()
+        navigate('/listar')
       }
     } catch (error) {
       console.log(error)
