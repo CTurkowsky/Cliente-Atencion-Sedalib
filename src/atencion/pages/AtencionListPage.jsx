@@ -1,4 +1,3 @@
-// TODO: Arreglar   carga de todos los registros
 import { useEffect, useState } from 'react'
 import { useAtencionStore } from '../../hooks'
 import { useForm } from 'react-hook-form'
@@ -25,7 +24,14 @@ export const AtencionListPage = () => {
   const [allAtenciones, setAllAtenciones] = useState([])
   const [previousPage, setPreviousPage] = useState(1)
   const [totalViewing, setTotalViewing] = useState(0)
+  useEffect(() => {
+  // Código que se ejecuta cuando el componente se monta
 
+    return () => {
+    // Código que se ejecuta cuando el componente se desmonta
+      clearAtenciones()
+    }
+  }, [])
   useEffect(() => {
     // Cuando la página cambia, actualiza totalViewing
     if (currentPage === 1) {
