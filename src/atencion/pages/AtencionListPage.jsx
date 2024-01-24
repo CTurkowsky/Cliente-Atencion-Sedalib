@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import { saveAs } from 'file-saver'
 import ExcelJS from 'exceljs'
 import { Table } from '../../components'
+import { toast } from 'react-toastify'
 export const AtencionListPage = () => {
   // Variables relacionadas con el estado del componente
   const [currentPage, setCurrentPage] = useState(1)
@@ -142,6 +143,16 @@ export const AtencionListPage = () => {
   const onSubmit = ({ fecha_inicio, fecha_fin }) => {
     // Si fecha_inicio o fecha_fin no están definidos, retorna temprano
     if (!fecha_inicio || !fecha_fin) {
+      toast.info('Debes seleccionar una fecha!', {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored'
+      })
       console.error('fecha_inicio y fecha_fin deben estar definidos')
       return
     }
@@ -174,39 +185,37 @@ export const AtencionListPage = () => {
   }
   return (
     <>
-      <h2 className='text-2xl  mb-4 text-center'>Lista de Atenciones</h2>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className='flex flex-row justify-center items-center mb-4'
-      >
-        <input
-          type='date'
-          placeholder='fecha_inicio'
-          {...register('fecha_inicio')}
-          className='border p-2 mr-2'
-        />
-        <input
-          type='date'
-          placeholder='fecha_fin'
-          {...register('fecha_fin')}
-          className='border p-2 mr-2'
-        />
-        <button className=' bg-breaker-bay-500 hover:bg-breaker-bay-600 active:bg-breaker-bay-700 text-white font-bold py-2 px-4 rounded'>
-          Buscar
-        </button>
-      </form>
+      <div className='flex justify-center items-center text-gray-700'>
+        <h2 className='text-2xl mb-4'>Lista de Atenciones</h2>
+      </div>
       <button
         onClick={clearAtenciones}
         className='middle none center mr-4 rounded-lg bg-blue-500 py-2 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none'
       >
         Limpiar
       </button>
-      {atenciones?.length === 0
-        ? (
-        <div className='text-red-500 text-center'>
-          Selecciona un filtro de busqueda!
+      <form onSubmit={handleSubmit(onSubmit)} className=''>
+        <div className='flex flex-row items-center justify-center space-x-4'>
+          <input
+            type='date'
+            placeholder='fecha_inicio'
+            {...register('fecha_inicio')}
+            className='w-1/4 border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
+          />
+          <input
+            type='date'
+            placeholder='fecha_fin'
+            {...register('fecha_fin')}
+            className='w-1/4 border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
+          />
+          <button className='bg-breaker-bay-500 hover:bg-breaker-bay-600 active:bg-breaker-bay-700 text-white middle none center mr-4 rounded-lg py-2 px-6 font-sans text-xs font-bold uppercase'>
+            Buscar
+          </button>
         </div>
-          )
+      </form>
+
+      {atenciones?.length === 0
+        ? null
         : (
         <>
           <button
@@ -215,17 +224,34 @@ export const AtencionListPage = () => {
           >
             Exportar a Excel
           </button>
+          <div
+            className='flex justify-center items-center  bg-blue-100 rounded-lg p-2 mb-8 text-sm text-blue-700 w-1/3 mx-auto'
+            role='alert'
+          >
+            <svg
+              className='w-4 h-4 inline mr-2'
+              fill='currentColor'
+              viewBox='0 0 20 20'
+              xmlns='http://www.w3.org/2000/svg'
+            >
+              <path
+                fillRule='evenodd'
+                d='M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z'
+                clipRule='evenodd'
+              ></path>
+            </svg>
+            <div>
+              Estas viendo <span className='font-medium'>{totalViewing}</span>  registros de <span className='font-medium'>{allAtenciones.length}</span>
+            </div>
+          </div>
           <Table atenciones={atenciones} />
-          <p className='mt-4 text-center'>
-            Estas viendo {totalViewing} registros de {allAtenciones.length}
-          </p>
         </>
           )}
       <div className='flex justify-center mt-4'>
         <button
           onClick={() => changePage(currentPage - 1)}
           disabled={currentPage === 1}
-          className=' bg-breaker-bay-500 hover:bg-breaker-bay-600 active:bg-breaker-bay-700 text-white font-bold py-2 px-4 rounded mr-2'
+          className=' bg-breaker-bay-500 hover:bg-breaker-bay-600 active:bg-breaker-bay-700 text-white  middle none center mr-4 rounded-lg py-2 px-6 font-sans text-xs font-bold uppercase'
         >
           Anterior
         </button>
@@ -233,7 +259,7 @@ export const AtencionListPage = () => {
         <button
           onClick={() => changePage(currentPage + 1)}
           disabled={!hasMore}
-          className=' bg-breaker-bay-500 hover:bg-breaker-bay-600 active:bg-breaker-bay-700 text-white font-bold py-2 px-4 rounded'
+          className=' bg-breaker-bay-500 hover:bg-breaker-bay-600 active:bg-breaker-bay-700 text-white  middle none center mr-4 rounded-lg py-2 px-6 font-sans text-xs font-bold uppercase'
         >
           Siguiente
         </button>
