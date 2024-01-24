@@ -26,8 +26,6 @@ export const AtencionListPage = () => {
   const [previousPage, setPreviousPage] = useState(1)
   const [totalViewing, setTotalViewing] = useState(0)
   useEffect(() => {
-    // Código que se ejecuta cuando el componente se monta
-
     return () => {
       // Código que se ejecuta cuando el componente se desmonta
       clearAtenciones()
@@ -143,7 +141,7 @@ export const AtencionListPage = () => {
   const onSubmit = ({ fecha_inicio, fecha_fin }) => {
     // Si fecha_inicio o fecha_fin no están definidos, retorna temprano
     if (!fecha_inicio || !fecha_fin) {
-      toast.info('Debes seleccionar una fecha!', {
+      toast.info('Debes seleccionar correctamente las fechas!', {
         position: 'bottom-right',
         autoClose: 5000,
         hideProgressBar: false,
@@ -176,7 +174,7 @@ export const AtencionListPage = () => {
     setFromDate(fromDate)
     setToDate(toDate)
 
-    startLoadingAtenciones(1, 2, fromDate, toDate)
+    startLoadingAtenciones(1, 50, fromDate, toDate)
     getAllAtenciones(fromDate, toDate)
     // Resetea los valores del formulario
     if (hasMore) {
@@ -218,12 +216,14 @@ export const AtencionListPage = () => {
         ? null
         : (
         <>
-          <button
-            onClick={exportToExcel}
-            className='middle none center mr-4 rounded-lg bg-green-500 py-2 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-green-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none'
-          >
-            Exportar a Excel
-          </button>
+          <div className='flex justify-center items-center my-8 mx-auto'>
+            <button
+              onClick={exportToExcel}
+              className='middle none center mr-4 rounded-lg bg-green-500 py-2 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-green-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none'
+            >
+              Exportar a Excel
+            </button>
+          </div>
           <div
             className='flex justify-center items-center  bg-blue-100 rounded-lg p-2 mb-8 text-sm text-blue-700 w-1/3 mx-auto'
             role='alert'
@@ -241,29 +241,34 @@ export const AtencionListPage = () => {
               ></path>
             </svg>
             <div>
-              Estas viendo <span className='font-medium'>{totalViewing}</span>  registros de <span className='font-medium'>{allAtenciones.length}</span>
+              Estas viendo <span className='font-medium'>{totalViewing}</span>{' '}
+              registros de{' '}
+              <span className='font-medium'>{allAtenciones.length}</span>
             </div>
           </div>
           <Table atenciones={atenciones} />
+
+          <div className='flex justify-center items-center my-8'>
+            <button
+              onClick={() => changePage(currentPage - 1)}
+              disabled={currentPage === 1}
+              className='bg-breaker-bay-500 hover:bg-breaker-bay-600 active:bg-breaker-bay-700 text-white middle none center mr-4 rounded-lg py-2 px-6 font-sans text-xs font-bold uppercase'
+            >
+              Anterior
+            </button>
+            <span className='mr-4'>
+              Página <span className='font-medium'>{currentPage}</span>
+            </span>
+            <button
+              onClick={() => changePage(currentPage + 1)}
+              disabled={!hasMore}
+              className='bg-breaker-bay-500 hover:bg-breaker-bay-600 active:bg-breaker-bay-700 text-white middle none center mr-4 rounded-lg py-2 px-6 font-sans text-xs font-bold uppercase'
+            >
+              Siguiente
+            </button>
+          </div>
         </>
           )}
-      <div className='flex justify-center mt-4'>
-        <button
-          onClick={() => changePage(currentPage - 1)}
-          disabled={currentPage === 1}
-          className=' bg-breaker-bay-500 hover:bg-breaker-bay-600 active:bg-breaker-bay-700 text-white  middle none center mr-4 rounded-lg py-2 px-6 font-sans text-xs font-bold uppercase'
-        >
-          Anterior
-        </button>
-        <span className='mr-2'>Página {currentPage}</span>
-        <button
-          onClick={() => changePage(currentPage + 1)}
-          disabled={!hasMore}
-          className=' bg-breaker-bay-500 hover:bg-breaker-bay-600 active:bg-breaker-bay-700 text-white  middle none center mr-4 rounded-lg py-2 px-6 font-sans text-xs font-bold uppercase'
-        >
-          Siguiente
-        </button>
-      </div>
     </>
   )
 }

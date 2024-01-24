@@ -91,7 +91,7 @@ export const useAtencionStore = () => {
 
   const startLoadingAtenciones = async (
     page = 1,
-    pageSize = 2,
+    pageSize = 50,
     fromDate,
     toDate
   ) => {
