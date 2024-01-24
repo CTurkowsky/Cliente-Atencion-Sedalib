@@ -10,6 +10,7 @@ import {
 } from '../store'
 import { atencionApi } from '../api'
 import { useState } from 'react'
+import { toast } from 'react-toastify'
 export const useAtencionStore = () => {
   const dispatch = useDispatch()
   const { atenciones } = useSelector((state) => state.atencion)
@@ -26,6 +27,16 @@ export const useAtencionStore = () => {
         await atencionApi.put(`atenciones/${atencion.id_atencion}`, atencion)
         dispatch(onUpdateAtencion({ ...atencion }))
         dispatch(onSetActiveAtencion(null))
+        toast.success('Se ha registrado un nuevo usuario!', {
+          position: 'bottom-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored'
+        })
         return
       }
       const { data } = await atencionApi.post('/atenciones', atencion)
@@ -35,7 +46,27 @@ export const useAtencionStore = () => {
           id_atencion: data.atencion.id_atencion
         })
       )
+      toast.success('Se ha registrado un nuevo usuario!', {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored'
+      })
     } catch (error) {
+      toast.error('Ocurrio un error!', {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored'
+      })
       console.log(error)
     }
   }
@@ -43,6 +74,16 @@ export const useAtencionStore = () => {
     try {
       await atencionApi.delete(`/atenciones/${id}`)
       dispatch(onDeleteAtencion(id))
+      toast.info('Se ha eliminado una atencion!', {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored'
+      })
     } catch (error) {
       console.log(error)
     }

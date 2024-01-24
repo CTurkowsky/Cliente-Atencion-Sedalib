@@ -3,7 +3,6 @@ import { AtencionListPage, RegisterAtencionPage, RegisterUsuarioPage, UsuarioLis
 import { Home } from '../Home'
 import { SideBar } from '../../components/SideBar'
 import { useSelector } from 'react-redux'
-
 export const AtencionRoutes = () => {
   const { user } = useSelector((state) => state.auth)
   return (

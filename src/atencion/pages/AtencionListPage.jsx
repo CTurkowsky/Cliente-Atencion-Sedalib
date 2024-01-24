@@ -194,14 +194,13 @@ export const AtencionListPage = () => {
         <button className=' bg-breaker-bay-500 hover:bg-breaker-bay-600 active:bg-breaker-bay-700 text-white font-bold py-2 px-4 rounded'>
           Buscar
         </button>
-
       </form>
-  <button
-          onClick={clearAtenciones}
-          className='bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded mb-4'
-        >
-          Limpiar
-        </button>
+      <button
+        onClick={clearAtenciones}
+        className='middle none center mr-4 rounded-lg bg-blue-500 py-2 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none'
+      >
+        Limpiar
+      </button>
       {atenciones?.length === 0
         ? (
         <div className='text-red-500 text-center'>
@@ -212,7 +211,7 @@ export const AtencionListPage = () => {
         <>
           <button
             onClick={exportToExcel}
-            className='bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mb-4'
+            className='middle none center mr-4 rounded-lg bg-green-500 py-2 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-green-500/20 transition-all hover:shadow-lg hover:shadow-green-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none'
           >
             Exportar a Excel
           </button>

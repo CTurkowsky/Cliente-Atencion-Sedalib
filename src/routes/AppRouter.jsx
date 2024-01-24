@@ -3,6 +3,7 @@ import { AuthRoutes } from '../auth/routes/AuthRoutes'
 import { AtencionRoutes } from '../atencion/routes/AtencionRoutes'
 import { useEffect } from 'react'
 import { useAuthStore } from '../hooks/useAuthStore'
+import { Spinner } from '../components'
 
 export const AppRouter = () => {
   const { status, checkAuthToken } = useAuthStore()
@@ -12,7 +13,7 @@ export const AppRouter = () => {
   }, [])
 
   if (status === 'checking') {
-    return <h1>Checking...</h1>
+    return <Spinner/>
   }
   return (
 

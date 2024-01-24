@@ -7,6 +7,7 @@ import {
   onLogout
 } from '../store'
 import { atencionApi } from '../api'
+import { toast } from 'react-toastify'
 export const useAuthStore = () => {
   const { status, user, errorMessage } = useSelector((state) => state.auth)
 
@@ -21,6 +22,16 @@ export const useAuthStore = () => {
       dispatch(onLogin({ ...data.usuario }))
     } catch (error) {
       dispatch(onLogout('Credenciales incorrectas'))
+      toast.error('Ocurrio un error!', {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored'
+      })
       setTimeout(() => {
         dispatch(clearErrorMessage())
       }, 10)

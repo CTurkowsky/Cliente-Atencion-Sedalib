@@ -3,7 +3,6 @@ import { useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
 import { useAtencionStore } from '../../hooks'
 import { useNavigate, useParams } from 'react-router-dom'
-
 export const RegisterAtencionPage = () => {
   const [atencionCode, setAtencionCode] = useState('')
   const [isEditing, setIsEditing] = useState(false)
@@ -235,7 +234,11 @@ export const RegisterAtencionPage = () => {
                 />
               </div>
               {!isEditing && (
-                <button type='submit' onClick={generateAtencion} className='block rounded-l px-5 py-3 text-sm font-medium bg-breaker-bay-500 hover:bg-breaker-bay-600 active:bg-breaker-bay-700 text-white'>
+                <button
+                  type='submit'
+                  onClick={generateAtencion}
+                  className='block rounded-l px-5 py-3 text-sm font-medium bg-breaker-bay-500 hover:bg-breaker-bay-600 active:bg-breaker-bay-700 text-white'
+                >
                   Generar Atencion
                 </button>
               )}
