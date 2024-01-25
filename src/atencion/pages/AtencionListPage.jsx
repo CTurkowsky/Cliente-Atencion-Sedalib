@@ -13,7 +13,6 @@ export const AtencionListPage = () => {
 
   // Variables relacionadas con el manejo de formularios
   const { register, handleSubmit, reset } = useForm()
-
   // Variables relacionadas con el manejo de atenciones
   const {
     atenciones,
@@ -181,7 +180,12 @@ export const AtencionListPage = () => {
       codigoSuministro,
       numeroAtencion
     )
-    startLoadingAllAtenciones(fromDate, toDate, codigoSuministro, numeroAtencion)
+    startLoadingAllAtenciones(
+      fromDate,
+      toDate,
+      codigoSuministro,
+      numeroAtencion
+    )
 
     if (hasMore) {
       reset()
@@ -192,7 +196,7 @@ export const AtencionListPage = () => {
       <div className='flex justify-center items-center text-gray-700'>
         <h2 className='text-2xl mb-4'>Lista de Atenciones</h2>
       </div>
-      <form onSubmit={handleSubmit(onSubmit)} className=''>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className='flex flex-row items-center justify-center space-x-4'>
           <input
             type='date'
@@ -207,19 +211,26 @@ export const AtencionListPage = () => {
             className='w-1/4 border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
           />
           <input
-            type='text'
+            type='number'
             placeholder='Codigo Suministro'
             {...register('codigo_suministro')}
             className='w-1/4 border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
           />
           <input
-            type='text'
+            type='number'
             placeholder='Numero de Atencion'
             {...register('numero_atencion')}
             className='w-1/4 border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
           />
           <button className='bg-breaker-bay-500 hover:bg-breaker-bay-600 active:bg-breaker-bay-700 text-white middle none center mr-4 rounded-lg py-2 px-6 font-sans text-xs font-bold uppercase'>
             Buscar
+          </button>
+          <button
+          type='button'
+            className='bg-breaker-bay-500 hover:bg-breaker-bay-600 active:bg-breaker-bay-700 text-white middle none center mr-4 rounded-lg py-2 px-6 font-sans text-xs font-bold uppercase'
+            onClick={() => reset()}
+          >
+            Limpiar
           </button>
         </div>
       </form>
@@ -254,12 +265,10 @@ export const AtencionListPage = () => {
             </svg>
             <div>
               Estas viendo <span className='font-medium'>{totalViewing}</span>{' '}
-              registros de{' '}
-              <span className='font-medium'>{all.length}</span>
+              registros de <span className='font-medium'>{all.length}</span>
             </div>
           </div>
           <Table atenciones={atenciones} />
-
           <div className='flex justify-center items-center my-8'>
             <button
               onClick={() => changePage(currentPage - 1)}

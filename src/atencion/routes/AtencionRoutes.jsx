@@ -1,8 +1,8 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
 import { AtencionListPage, RegisterAtencionPage, RegisterUsuarioPage, UsuarioListPage } from '../pages'
 import { Home } from '../Home'
-import { SideBar } from '../../components/SideBar'
 import { useSelector } from 'react-redux'
+import { SideBar } from '../../components'
 export const AtencionRoutes = () => {
   const { user } = useSelector((state) => state.auth)
   return (

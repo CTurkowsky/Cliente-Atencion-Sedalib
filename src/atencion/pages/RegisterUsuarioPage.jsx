@@ -62,7 +62,8 @@ export const RegisterUsuarioPage = () => {
   }
   return (
     <div className='mx-auto  px-4 py-16 sm:px-6 lg:px-8'>
-      <div className='mx-auto  bg-white p-8 rounded-lg shadow-lg max-w-md w-full'>
+      <div className='mx-auto  bg-white p-8 rounded-lg shadow-lg max-w-md w-full animate__animated animate__fadeInUp'>
+
         <h2 className='text-xl font-semibold mb-4 text-center'>
           {' '}
           {isEditing ? 'Editar Usuario' : 'Registrar Usuario'}

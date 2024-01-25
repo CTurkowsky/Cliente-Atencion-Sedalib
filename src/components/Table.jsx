@@ -8,7 +8,7 @@ export const Table = ({ atenciones }) => {
     <div className='flex justify-center w-full'>
       <div style={{ overflowX: 'auto' }} className='w-1/2 h-1/2'>
         <table className='items-center bg-transparent w-full border-collapse'>
-          <thead className='bg-breaker-bay-300 text-white'>
+          <thead className='bg-breaker-bay-400 text-white'>
             <tr className=''>
               <th
                 scope='col'
@@ -94,6 +94,12 @@ export const Table = ({ atenciones }) => {
               >
                 Sub Categoria
               </th>
+               <th
+                scope='col'
+                className='px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center'
+              >
+               Problema
+              </th>
               <th
                 scope='col'
                 className='px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center'
@@ -140,6 +146,7 @@ export const Table = ({ atenciones }) => {
                 modalidad,
                 categoria,
                 sub_categoria,
+                problema,
                 petitorio,
                 numero_atencion,
                 fecha,
@@ -229,6 +236,12 @@ export const Table = ({ atenciones }) => {
                     className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center text-blueGray-700'
                   >
                     {sub_categoria}
+                  </th>
+                    <th
+                    scope='row'
+                    className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center text-blueGray-700'
+                  >
+                    {problema}
                   </th>
                   <th
                     scope='row'
