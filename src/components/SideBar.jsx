@@ -11,7 +11,7 @@ export const SideBar = ({ children }) => {
   const { startLogout } = useAuthStore()
   return (
     <main className='h-screen w-full bg-gray-100 text-gray-700'>
-      <header className='flex w-full items-center justify-between border-b-2 border-gray-200 text-white bg-breaker-bay-600 p-2'>
+      <header className='flex w-full items-center justify-between border-b-3 border-gray-200 text-white bg-breaker-bay-600 p-2'>
         <div className='flex items-center space-x-2'>
           <button
             type='button'
@@ -21,7 +21,7 @@ export const SideBar = ({ children }) => {
             <Menu />
           </button>
           <div>
-            <span>Gestion de Atenciones - Dlaborum - </span>
+            <span className='font-medium'>Gestion de Atenciones - Dlaborum - </span>
             {user.nombre + ' ' + user.apellidos}
           </div>
         </div>

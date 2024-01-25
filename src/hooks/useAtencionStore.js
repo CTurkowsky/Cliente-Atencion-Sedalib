@@ -27,7 +27,7 @@ export const useAtencionStore = () => {
         await atencionApi.put(`atenciones/${atencion.id_atencion}`, atencion)
         dispatch(onUpdateAtencion({ ...atencion }))
         dispatch(onSetActiveAtencion(null))
-        toast.success('Se ha registrado un nuevo usuario!', {
+        toast.success('Se ha registrado un nueva atencion !', {
           position: 'bottom-right',
           autoClose: 5000,
           hideProgressBar: false,
@@ -46,7 +46,7 @@ export const useAtencionStore = () => {
           id_atencion: data.atencion.id_atencion
         })
       )
-      toast.success('Se ha registrado un nuevo usuario!', {
+      toast.success('Se ha editado un nueva atencion', {
         position: 'bottom-right',
         autoClose: 5000,
         hideProgressBar: false,
@@ -93,7 +93,9 @@ export const useAtencionStore = () => {
     page = 1,
     pageSize = 50,
     fromDate,
-    toDate
+    toDate,
+    codigoSuministro,
+    numeroAtencion
   ) => {
     try {
       const { data } = await atencionApi.get('/atenciones', {
@@ -101,7 +103,9 @@ export const useAtencionStore = () => {
           page,
           pageSize,
           fromDate,
-          toDate
+          toDate,
+          codigoSuministro,
+          numeroAtencion
         }
       })
       const atenciones = data.atenciones
@@ -110,7 +114,6 @@ export const useAtencionStore = () => {
       // Carga las atenciones antes de verificar si hay más
       dispatch(onLoadAtenciones(atenciones))
       setHasMore(hasMore)
-
       return hasMore // Devuelve el valor de hasMore directamente
     } catch (error) {
       console.log('Error cargando atenciones')
@@ -122,14 +125,17 @@ export const useAtencionStore = () => {
   const resetHasMore = () => {
     setHasMore(true)
   }
-  const startLoadingAllAtenciones = async (fromDate, toDate) => {
+  const startLoadingAllAtenciones = async (fromDate, toDate, codigoSuministro, numeroAtencion) => {
     try {
       const { data } = await atencionApi.get('/atenciones', {
         params: {
           fromDate,
-          toDate
+          toDate,
+          codigoSuministro,
+          numeroAtencion
         }
       })
+      console.log(data)
       const all = data.atenciones
       dispatch(onLoadAllAtenciones(all))
       return all // Despacha la acción loadAtenciones con las nuevas atenciones cargadas
@@ -138,7 +144,6 @@ export const useAtencionStore = () => {
       console.log(error)
     }
   }
-
   const getAtencion = async (idAtencion) => {
     try {
       const { data } = await atencionApi.get(`/atenciones/${idAtencion}`)

@@ -107,7 +107,12 @@ export const RegisterAtencionPage = () => {
                   placeholder='Nombre del usuario'
                   {...register('nombre_cliente', { required: true })}
                 />
-
+                <input
+                  type='text'
+                  className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
+                  placeholder='Documento de Identidad'
+                  {...register('doc_identidad', { required: true })}
+                />
                 <input
                   type='tel'
                   className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
@@ -191,6 +196,12 @@ export const RegisterAtencionPage = () => {
                   <option>Atoro en la conexion de alcantaril</option>
                   <option>Fugas en red ag. pot. e inundacion</option>
                 </select>
+                        <label>Problema</label>
+                <input
+                  type='text'
+                  className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
+                  {...register('problema', { required: true })}
+                />
                 <textarea
                   type='text'
                   className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'

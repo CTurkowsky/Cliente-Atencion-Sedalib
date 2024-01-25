@@ -13,7 +13,7 @@ export const UsuarioListPage = () => {
 
   return (
     <>
-    <table className='items-center bg-transparent w-full border-collapse'>
+      <table className='items-center bg-transparent w-full border-collapse'>
         <thead className='bg-breaker-bay-300 text-white'>
           <tr>
             <th

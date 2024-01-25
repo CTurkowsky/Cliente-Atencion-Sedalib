@@ -70,6 +70,12 @@ export const Table = ({ atenciones }) => {
               >
                 Email
               </th>
+                <th
+                scope='col'
+                className='px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center'
+              >
+                Documento Cliente
+              </th>
               <th
                 scope='col'
                 className='px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center'
@@ -126,6 +132,7 @@ export const Table = ({ atenciones }) => {
                 nombre_cliente,
                 celular,
                 email,
+                doc_identidad,
                 modalidad,
                 categoria,
                 sub_categoria,
@@ -194,6 +201,13 @@ export const Table = ({ atenciones }) => {
                     className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center text-blueGray-700'
                   >
                     {email}
+                  </th>
+                     <th
+                    scope='row'
+                    className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center text-blueGray-700'
+                  >
+                    {doc_identidad}
+
                   </th>
                   <th
                     scope='row'

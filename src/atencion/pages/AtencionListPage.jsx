@@ -18,11 +18,11 @@ export const AtencionListPage = () => {
   const {
     atenciones,
     hasMore,
+    all,
     startLoadingAtenciones,
     startLoadingAllAtenciones,
     clearAtenciones
   } = useAtencionStore()
-  const [allAtenciones, setAllAtenciones] = useState([])
   const [previousPage, setPreviousPage] = useState(1)
   const [totalViewing, setTotalViewing] = useState(0)
   useEffect(() => {
@@ -45,14 +45,6 @@ export const AtencionListPage = () => {
     setPreviousPage(currentPage)
   }, [currentPage, atenciones?.length])
 
-  const getAllAtenciones = async (fromDate, toDate) => {
-    try {
-      const allAtenciones = await startLoadingAllAtenciones(fromDate, toDate)
-      setAllAtenciones(allAtenciones)
-    } catch (error) {
-      console.log(error)
-    }
-  }
   const changePage = async (newPage) => {
     // Si la nueva página es menor que 0, no hagas nada
     if (newPage < 0) return
@@ -91,9 +83,11 @@ export const AtencionListPage = () => {
       { header: 'Nombre Cliente', key: 'nombre_cliente' },
       { header: 'Celular', key: 'celular' },
       { header: 'Email', key: 'email' },
+      { header: 'Doc Identidad', key: 'doc_identidad' },
       { header: 'Modalidad', key: 'modalidad' },
       { header: 'Categoria', key: 'categoria' },
       { header: 'Sub Categoria', key: 'sub_categoria' },
+      { header: 'Problema', key: 'problema' },
       { header: 'Petitorio', key: 'petitorio' },
       { header: 'Fecha', key: 'fecha' },
       { header: 'Usuario Registra', key: 'id_usuario' },
@@ -116,7 +110,7 @@ export const AtencionListPage = () => {
     })
 
     // Agrega los datos a la hoja de trabajo
-    allAtenciones.forEach((atencion) => {
+    all.forEach((atencion) => {
       const row = worksheet.addRow(atencion)
 
       // Aplica el estilo de borde y el alineamiento a todas las celdas
@@ -138,10 +132,36 @@ export const AtencionListPage = () => {
     })
     saveAs(blob, 'atenciones.xlsx')
   }
-  const onSubmit = ({ fecha_inicio, fecha_fin }) => {
-    // Si fecha_inicio o fecha_fin no están definidos, retorna temprano
-    if (!fecha_inicio || !fecha_fin) {
-      toast.info('Debes seleccionar correctamente las fechas!', {
+  const onSubmit = ({
+    fecha_inicio,
+    fecha_fin,
+    codigo_suministro,
+    numero_atencion
+  }) => {
+    let fromDate, toDate
+
+    // Solo ajusta las fechas y las convierte a cadenas si están definidas
+    if (fecha_inicio && fecha_fin) {
+      // Ajusta la fecha de inicio a la medianoche en la zona horaria UTC
+      const startDate = new Date(`${fecha_inicio}T00:00:00.000Z`)
+
+      // Ajusta la fecha de finalización al final del día en la zona horaria UTC
+      const endDate = new Date(`${fecha_fin}T23:59:59.999Z`)
+
+      // Convierte las fechas a cadenas en la zona horaria UTC
+      fromDate = startDate.toISOString()
+      toDate = endDate.toISOString()
+
+      setFromDate(fromDate)
+      setToDate(toDate)
+    }
+
+    const codigoSuministro = codigo_suministro
+    const numeroAtencion = numero_atencion
+
+    if (!fromDate && !toDate && !codigoSuministro && !numeroAtencion) {
+      // Si todos los campos están vacíos, muestra un toast y termina la ejecución de la función
+      toast.info('Seleciona un filtro de busqueda!', {
         position: 'bottom-right',
         autoClose: 5000,
         hideProgressBar: false,
@@ -151,32 +171,18 @@ export const AtencionListPage = () => {
         progress: undefined,
         theme: 'colored'
       })
-      console.error('fecha_inicio y fecha_fin deben estar definidos')
       return
     }
+    startLoadingAtenciones(
+      1,
+      50,
+      fromDate,
+      toDate,
+      codigoSuministro,
+      numeroAtencion
+    )
+    startLoadingAllAtenciones(fromDate, toDate, codigoSuministro, numeroAtencion)
 
-    // Comprueba si fecha_inicio y fecha_fin son fechas válidas
-    if (isNaN(new Date(fecha_inicio)) || isNaN(new Date(fecha_fin))) {
-      console.error('fecha_inicio o fecha_fin no son fechas válidas')
-      return
-    }
-
-    // Ajusta la fecha de inicio a la medianoche en la zona horaria UTC
-    const startDate = new Date(`${fecha_inicio}T00:00:00.000Z`)
-
-    // Ajusta la fecha de finalización al final del día en la zona horaria UTC
-    const endDate = new Date(`${fecha_fin}T23:59:59.999Z`)
-
-    // Convierte las fechas a cadenas en la zona horaria UTC
-    const fromDate = startDate.toISOString()
-    const toDate = endDate.toISOString()
-
-    setFromDate(fromDate)
-    setToDate(toDate)
-
-    startLoadingAtenciones(1, 50, fromDate, toDate)
-    getAllAtenciones(fromDate, toDate)
-    // Resetea los valores del formulario
     if (hasMore) {
       reset()
     }
@@ -204,6 +210,18 @@ export const AtencionListPage = () => {
             type='date'
             placeholder='fecha_fin'
             {...register('fecha_fin')}
+            className='w-1/4 border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
+          />
+          <input
+            type='text'
+            placeholder='Codigo Suministro'
+            {...register('codigo_suministro')}
+            className='w-1/4 border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
+          />
+          <input
+            type='text'
+            placeholder='Numero de Atencion'
+            {...register('numero_atencion')}
             className='w-1/4 border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
           />
           <button className='bg-breaker-bay-500 hover:bg-breaker-bay-600 active:bg-breaker-bay-700 text-white middle none center mr-4 rounded-lg py-2 px-6 font-sans text-xs font-bold uppercase'>
@@ -243,7 +261,7 @@ export const AtencionListPage = () => {
             <div>
               Estas viendo <span className='font-medium'>{totalViewing}</span>{' '}
               registros de{' '}
-              <span className='font-medium'>{allAtenciones.length}</span>
+              <span className='font-medium'>{all.length}</span>
             </div>
           </div>
           <Table atenciones={atenciones} />

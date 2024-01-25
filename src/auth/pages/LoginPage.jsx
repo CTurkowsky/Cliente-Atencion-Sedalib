@@ -7,10 +7,10 @@ export const LoginPage = () => {
   const schema = yup.object().shape({
     email: yup
       .string()
-      .email('Correo o contraseña incorrecto')
+      .email('Correo o contraseña incorrecta')
       .required('El correo es requerido'),
     password: yup
-      .string().min(6, 'Correo o contraseña incorrecto')
+      .string().min(6, 'Correo o contraseña incorrecta')
       .required('La contraseña es requerida')
   })
   const {
