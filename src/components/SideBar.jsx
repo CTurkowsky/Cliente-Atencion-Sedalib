@@ -62,8 +62,8 @@ export const SideBar = ({ children }) => {
             <details>
               <summary style={{ listStyle: 'none' }}>Atenciones</summary>
               <div className='flex flex-col space-y-2'>
-                {user.rol === 'admin' ? <NavLink to='/listar'>Listar</NavLink> : null}
-                <NavLink to='/registrar'>Registrar</NavLink>
+                <NavLink to='/listar-atencion'>Listar</NavLink>
+                <NavLink to='/registrar-atencion'>Registrar</NavLink>
               </div>
             </details>
           </div>
@@ -76,8 +76,8 @@ export const SideBar = ({ children }) => {
             <details>
               <summary style={{ listStyle: 'none' }}>Usuarios</summary>
               <div className='flex flex-col space-y-2'>
-                <NavLink to='/listarusuarios'>Listar</NavLink>
-                <NavLink to='/registrarusuario'>Registrar</NavLink>
+                <NavLink to='/listar-usuarios'>Listar</NavLink>
+                <NavLink to='/registrar-usuario'>Registrar</NavLink>
               </div>
             </details>
           </div>

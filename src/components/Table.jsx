@@ -70,7 +70,7 @@ export const Table = ({ atenciones }) => {
               >
                 Email
               </th>
-                <th
+              <th
                 scope='col'
                 className='px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center'
               >
@@ -112,12 +112,16 @@ export const Table = ({ atenciones }) => {
               >
                 Usuario Registra
               </th>
-              <th
-                scope='col'
-                className='px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center'
-              >
-                Acciones
-              </th>
+              {user.rol === 'admin'
+                ? (
+                <th
+                  scope='col'
+                  className='px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center'
+                >
+                  Acciones
+                </th>
+                  )
+                : null}
             </tr>
           </thead>
           <tbody className='bg-white divide-y divide-gray-200'>
@@ -202,12 +206,11 @@ export const Table = ({ atenciones }) => {
                   >
                     {email}
                   </th>
-                     <th
+                  <th
                     scope='row'
                     className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center text-blueGray-700'
                   >
                     {doc_identidad}
-
                   </th>
                   <th
                     scope='row'

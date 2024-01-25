@@ -135,7 +135,6 @@ export const useAtencionStore = () => {
           numeroAtencion
         }
       })
-      console.log(data)
       const all = data.atenciones
       dispatch(onLoadAllAtenciones(all))
       return all // Despacha la acción loadAtenciones con las nuevas atenciones cargadas

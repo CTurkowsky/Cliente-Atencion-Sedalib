@@ -8,12 +8,12 @@ export const AtencionRoutes = () => {
   return (
     <SideBar>
       <Routes>
-        <Route path="/registrar" element={<RegisterAtencionPage />} />
-        <Route path="/registrarusuario" element={user && user.rol === 'admin' ? <RegisterUsuarioPage/> : <Navigate to='/' />} />
+        <Route path="/registrar-atencion" element={<RegisterAtencionPage />} />
+        <Route path="/registrar-usuario" element={user && user.rol === 'admin' ? <RegisterUsuarioPage/> : <Navigate to='/' />} />
         <Route path="/editar/:id" element={<RegisterAtencionPage />} />
-        <Route path="/editarusuario/:id" element={<RegisterUsuarioPage/>} />
-        <Route path="/listar" element={user && user.rol === 'admin' ? <AtencionListPage/> : <Navigate to='/' />} />
-        <Route path="/listarusuarios" element={user && user.rol === 'admin' ? <UsuarioListPage/> : <Navigate to='/' />} />
+        <Route path="/editar-usuario/:id" element={<RegisterUsuarioPage/>} />
+        <Route path="/listar-atencion" element={ <AtencionListPage/>} />
+        <Route path="/listar-usuarios" element={user && user.rol === 'admin' ? <UsuarioListPage/> : <Navigate to='/' />} />
         <Route path="/" element={<Home />} />
         <Route path="/*" element={<Navigate to='/'/>}/>
       </Routes>
