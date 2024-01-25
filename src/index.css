@@ -14,3 +14,20 @@
 .animate-fadeIn {
   animation: fadeIn 2s ease-in-out forwards;
 }
+
+@keyframes moveWave {
+  0% {
+    background-position: 0 bottom;
+  }
+  100% {
+    background-position: 100% bottom;
+  }
+}
+
+.bg-wave {
+  background-image: url('/wave-2.svg');
+  background-repeat: repeat-x;
+  background-position: bottom;
+  background-size: auto 100%;
+  animation: moveWave 30s ease-in-out infinite alternate;
+}

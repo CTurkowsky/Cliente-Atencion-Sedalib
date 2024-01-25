@@ -192,12 +192,6 @@ export const AtencionListPage = () => {
       <div className='flex justify-center items-center text-gray-700'>
         <h2 className='text-2xl mb-4'>Lista de Atenciones</h2>
       </div>
-      <button
-        onClick={clearAtenciones}
-        className='middle none center mr-4 rounded-lg bg-blue-500 py-2 px-6 font-sans text-xs font-bold uppercase text-white shadow-md shadow-blue-500/20 transition-all hover:shadow-lg hover:shadow-blue-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none'
-      >
-        Limpiar
-      </button>
       <form onSubmit={handleSubmit(onSubmit)} className=''>
         <div className='flex flex-row items-center justify-center space-x-4'>
           <input

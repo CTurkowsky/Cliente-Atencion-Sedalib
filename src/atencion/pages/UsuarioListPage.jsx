@@ -78,7 +78,7 @@ export const UsuarioListPage = () => {
                   ? (
                   <td className='px-6 py-4 whitespace-nowrap text-center text-sm font-medium'>
                     <button className='middle none center rounded-lg bg-orange-500 py-2 px-4 font-sans text-xs font-bold uppercase text-white shadow-md shadow-orange-500/20 transition-all hover:shadow-lg hover:shadow-orange-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none mr-4'>
-                      <NavLink to={`/editarusuario/${id_usuario}`}>
+                      <NavLink to={`/editar-usuario/${id_usuario}`}>
                         Editar
                       </NavLink>
                     </button>

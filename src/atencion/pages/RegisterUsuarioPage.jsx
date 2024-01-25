@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form'
 import { useUsuarioStore } from '../../hooks'
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
 import * as yup from 'yup'
 export const RegisterUsuarioPage = () => {
@@ -9,7 +9,7 @@ export const RegisterUsuarioPage = () => {
   const [isEditing, setIsEditing] = useState(false)
 
   const { id } = useParams()
-
+  const navigator = useNavigate()
   const schema = yup.object().shape({
     nombre: yup
       .string()
@@ -57,6 +57,7 @@ export const RegisterUsuarioPage = () => {
     }
     console.log(data)
     startSavingUsuario(data)
+    navigator('/listar-usuarios')
     reset()
   }
   return (
