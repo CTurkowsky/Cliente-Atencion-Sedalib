@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form'
 import { useRegisterValidationSchema, useUsuarioStore } from '../../hooks'
 import { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { AuthLayout } from '../../auth/layout/AuthLayout'
 export const RegisterUsuarioPage = () => {
@@ -9,7 +9,6 @@ export const RegisterUsuarioPage = () => {
   const [isEditing, setIsEditing] = useState(false)
 
   const { id } = useParams()
-  const navigator = useNavigate()
 
   const validationSchema = useRegisterValidationSchema()
   const {
@@ -41,18 +40,14 @@ export const RegisterUsuarioPage = () => {
     if (isEditing && data.password === '') {
       delete data.password
     }
-    console.log(data)
-    startSavingUsuario(data)
-    navigator('/listar-usuarios')
-    reset()
+    try {
+      startSavingUsuario(data)
+      reset()
+    } catch (error) {
+      console.error(error)
+    }
   }
   return (
-    // <div className='mx-auto  px-4 py-16 sm:px-6 lg:px-8'>
-    //   <div className='mx-auto  bg-white p-8 rounded-lg shadow-lg max-w-md w-full animate__animated animate__fadeInUp'>
-    //     <h2 className='text-xl font-semibold mb-4 text-center'>
-    //       {' '}
-    //       {isEditing ? 'Editar Usuario' : 'Registrar Usuario'}
-    //     </h2>
     <AuthLayout title={isEditing ? 'Editar Usuario' : 'Registrar Usuario'}>
       <form onSubmit={handleSubmit(onSubmit)}>
         <input
@@ -197,7 +192,5 @@ export const RegisterUsuarioPage = () => {
         </button>
       </form>
     </AuthLayout>
-    //   </div>
-    // </div>
   )
 }

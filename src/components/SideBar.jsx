@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Home, Menu, Flag, User, LogOut } from 'react-feather'
 import { NavLink } from 'react-router-dom'
 import { useSelector } from 'react-redux'
@@ -6,9 +6,24 @@ import { useAuthStore } from '../hooks'
 export const SideBar = ({ children }) => {
   const [asideOpen, setAsideOpen] = useState(true)
   const [profileOpen, setProfileOpen] = useState(false)
-
+  const [isSmallScreen, setIsSmallScreen] = useState(window.innerWidth < 768)
   const { user } = useSelector((state) => state.auth)
   const { startLogout } = useAuthStore()
+  useEffect(() => {
+    const handleResize = () => {
+      setIsSmallScreen(window.innerWidth < 768)
+    }
+
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [])
+
+  useEffect(() => {
+    setAsideOpen(!isSmallScreen)
+  }, [isSmallScreen])
   return (
     <main className='h-screen w-full bg-gray-50 text-gray-700'>
       <header className='flex w-full items-center justify-between border-b-3 border-gray-200 text-white bg-breaker-bay-600 p-2'>
