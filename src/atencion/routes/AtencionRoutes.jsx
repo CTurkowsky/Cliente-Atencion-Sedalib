@@ -10,7 +10,7 @@ export const AtencionRoutes = () => {
       <Routes>
         <Route path="/registrar-atencion" element={<RegisterAtencionPage />} />
         <Route path="/registrar-usuario" element={user && user.rol === 'admin' ? <RegisterUsuarioPage/> : <Navigate to='/' />} />
-        <Route path="/editar/:id" element={<RegisterAtencionPage />} />
+        <Route path="/editar-atencion/:id" element={<RegisterAtencionPage />} />
         <Route path="/editar-usuario/:id" element={<RegisterUsuarioPage/>} />
         <Route path="/listar-atencion" element={ <AtencionListPage/>} />
         <Route path="/listar-usuarios" element={user && user.rol === 'admin' ? <UsuarioListPage/> : <Navigate to='/' />} />
