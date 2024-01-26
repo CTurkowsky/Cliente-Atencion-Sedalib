@@ -1,9 +1,9 @@
 import { NavLink } from 'react-router-dom'
 
-export const Home = () => {
+export const HomePage = () => {
   return (
     <div className='flex flex-col items-center justify-center h-screen transition-all duration-500 ease-in-out opacity-0 animate-fadeIn'>
-      <div className='mx-auto   p-8  max-w-md w-full text-center animate__animated animate__fadeInUp'>
+      <div className='p-8 text-center animate__animated animate__fadeInUp'>
         <h1 className='text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-4xl font-medium mb-4 animate-pulse'>
           Bienvenido a Gestion de Atenciones 📞
         </h1>

@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { useAtencionStore } from '../hooks'
-export const Table = ({ atenciones }) => {
+export const AttentionTable = ({ atenciones }) => {
   const { user } = useSelector((state) => state.auth)
   const { startDeletingAtencion } = useAtencionStore()
   return (

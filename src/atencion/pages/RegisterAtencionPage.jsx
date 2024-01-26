@@ -157,10 +157,12 @@ export const RegisterAtencionPage = () => {
   }
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
-      <h2 className='text-xl font-semibold mb-4 text-center'>
+      <div className='flex align-center justify-center items-center'>
+      <h2 className='text-2xl mb-4'>
         {' '}
         {isEditing ? 'Editar Atencion' : 'Registrar Atencion'}
       </h2>
+      </div>
       <div className='flex flex-row flex-wrap sm:flex-nowrap gap-x-8 mt-8'>
         <div className='w-full sm:w-1/3 p-8  bg-white  rounded-lg shadow-lg animate__animated animate__fadeInUp'>
           <h2 className='text-xl font-semibold mb-4 text-center'>
@@ -209,7 +211,7 @@ export const RegisterAtencionPage = () => {
           >
             <option value='PRESENCIAL'>PRESENCIAL</option>
             <option value='TELEFONO'>TELEFONO</option>
-            <option value='VIRTUAL'>VIRTUAL</option>
+            <option value='WEB'>WEB</option>
             <option value='WHATSAPP'>WHATSAPP</option>
             <option value='FACEBOOK'>FACEBOOK</option>
           </select>

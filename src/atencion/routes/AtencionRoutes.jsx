@@ -1,6 +1,5 @@
 import { Navigate, Route, Routes } from 'react-router-dom'
-import { AtencionListPage, RegisterAtencionPage, RegisterUsuarioPage, UsuarioListPage } from '../pages'
-import { Home } from '../Home'
+import { AtencionListPage, HomePage, RegisterAtencionPage, RegisterUsuarioPage, UsuarioListPage } from '../pages'
 import { useSelector } from 'react-redux'
 import { SideBar } from '../../components'
 export const AtencionRoutes = () => {
@@ -12,9 +11,9 @@ export const AtencionRoutes = () => {
         <Route path="/registrar-usuario" element={user && user.rol === 'admin' ? <RegisterUsuarioPage/> : <Navigate to='/' />} />
         <Route path="/editar-atencion/:id" element={<RegisterAtencionPage />} />
         <Route path="/editar-usuario/:id" element={<RegisterUsuarioPage/>} />
-        <Route path="/listar-atencion" element={ <AtencionListPage/>} />
+        <Route path="/listar-atenciones" element={ <AtencionListPage/>} />
         <Route path="/listar-usuarios" element={user && user.rol === 'admin' ? <UsuarioListPage/> : <Navigate to='/' />} />
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="/*" element={<Navigate to='/'/>}/>
       </Routes>
      </SideBar>

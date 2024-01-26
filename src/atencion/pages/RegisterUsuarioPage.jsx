@@ -1,38 +1,23 @@
 import { useForm } from 'react-hook-form'
-import { useUsuarioStore } from '../../hooks'
+import { useRegisterValidationSchema, useUsuarioStore } from '../../hooks'
 import { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
-import * as yup from 'yup'
 export const RegisterUsuarioPage = () => {
   const { startSavingUsuario, getUsuario } = useUsuarioStore()
   const [isEditing, setIsEditing] = useState(false)
 
   const { id } = useParams()
   const navigator = useNavigate()
-  const schema = yup.object().shape({
-    nombre: yup
-      .string()
-      .min(3, 'El nombre debe tener al menos 3 caracteres')
-      .required('El nombre es requerido'),
-    apellidos: yup
-      .string()
-      .min(3, 'Los apellidos deben tener al menos 3 caracteres')
-      .required('Los apellidos es requerido'),
-    email: yup
-      .string()
-      .email('Debe ser un correo válido')
-      .required('El correo es requerido'),
 
-    modalidad: yup.string().required('La modalidad es requerida')
-  })
+  const validationSchema = useRegisterValidationSchema()
   const {
     register,
     handleSubmit,
     reset,
     setValue,
     formState: { errors }
-  } = useForm({ resolver: yupResolver(schema) })
+  } = useForm({ resolver: yupResolver(validationSchema) })
   useEffect(() => {
     const fetchUsuario = async () => {
       const usuarioData = await getUsuario(id)

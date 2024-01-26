@@ -110,10 +110,25 @@ export const useAtencionStore = () => {
       })
       const atenciones = data.atenciones
       const hasMore = data.hasMore
+      const total = data.total
+
+      if (total === 0) {
+        toast.info('No hay registros!', {
+          position: 'bottom-right',
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: 'colored'
+        })// Muestra un toast cuando total es igual a 0
+      }
 
       // Carga las atenciones antes de verificar si hay más
       dispatch(onLoadAtenciones(atenciones))
       setHasMore(hasMore)
+
       return hasMore // Devuelve el valor de hasMore directamente
     } catch (error) {
       console.log('Error cargando atenciones')

@@ -62,7 +62,7 @@ export const SideBar = ({ children }) => {
             <details>
               <summary style={{ listStyle: 'none' }}>Atenciones</summary>
               <div className='flex flex-col space-y-2'>
-                <NavLink to='/listar-atencion'>Listar</NavLink>
+                <NavLink to='/listar-atenciones'>Listar</NavLink>
                 <NavLink to='/registrar-atencion'>Registrar</NavLink>
               </div>
             </details>
