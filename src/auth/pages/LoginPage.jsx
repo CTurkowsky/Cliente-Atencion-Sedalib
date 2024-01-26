@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form'
 import { useAuthStore } from '../../hooks/useAuthStore'
 import { yupResolver } from '@hookform/resolvers/yup'
-import { FormLayout } from '../layout/FormLayout'
+import { AuthLayout } from '../layout/AuthLayout'
 import { useLoginValidationSchema } from '../../hooks'
 export const LoginPage = () => {
   const { startLogin } = useAuthStore()
@@ -18,7 +18,7 @@ export const LoginPage = () => {
   }
 
   return (
-    <FormLayout title='Iniciar sesión'>
+    <AuthLayout title='Iniciar sesión'>
       <form onSubmit={handleSubmit(onSubmit)}>
         <input
           className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
@@ -77,6 +77,6 @@ export const LoginPage = () => {
           Ingresar
         </button>
       </form>
-    </FormLayout>
+    </AuthLayout>
   )
 }

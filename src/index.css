@@ -32,3 +32,6 @@
   animation: moveWave 30s ease-in-out infinite alternate;
 }
 
+.hover\:bg-gray-100:hover {
+  background-color: #f7fafc;
+}

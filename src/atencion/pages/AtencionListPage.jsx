@@ -193,7 +193,7 @@ export const AtencionListPage = () => {
     }
   }
   return (
-    <>
+    <div className='p-4'>
       <div className='flex justify-center items-center text-gray-700'>
         <h2 className='text-2xl mb-4'>Lista de Atenciones</h2>
       </div>
@@ -291,6 +291,6 @@ export const AtencionListPage = () => {
           </div>
         </>
           )}
-    </>
+    </div>
   )
 }

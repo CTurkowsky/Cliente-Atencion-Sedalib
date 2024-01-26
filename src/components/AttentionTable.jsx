@@ -6,7 +6,7 @@ export const AttentionTable = ({ atenciones }) => {
   const { startDeletingAtencion } = useAtencionStore()
   return (
     <div className='flex justify-center w-full'>
-      <div style={{ overflowX: 'auto' }} className='w-1/2 h-1/2'>
+      <div style={{ overflowX: 'auto' }} className='w-full h-full'>
         <table className='items-center bg-transparent w-full border-collapse'>
           <thead className='bg-breaker-bay-400 text-white'>
             <tr className=''>
@@ -152,7 +152,7 @@ export const AttentionTable = ({ atenciones }) => {
                 fecha,
                 id_usuario
               }) => (
-                <tr key={id_atencion}>
+                <tr key={id_atencion} className='hover:bg-gray-100 transition-colors duration-200'>
                   <th
                     scope='row'
                     className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center text-blueGray-700'

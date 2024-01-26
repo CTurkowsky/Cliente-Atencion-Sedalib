@@ -51,7 +51,7 @@ export const UserTable = ({ usuarios }) => {
         <tbody className='bg-white divide-y divide-gray-200'>
           {usuarios.map(
             ({ id_usuario, nombre, apellidos, email, modalidad }) => (
-              <tr key={id_usuario}>
+              <tr key={id_usuario} className='hover:bg-gray-100 transition-colors duration-200'>
                 <td className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center text-blueGray-700'>
                   {id_usuario}
                 </td>

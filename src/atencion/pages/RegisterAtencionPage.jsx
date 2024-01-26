@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
 import { useAtencionStore } from '../../hooks'
 import { useNavigate, useParams } from 'react-router-dom'
+import { FormLayout } from '../layout/FormLayout'
 export const RegisterAtencionPage = () => {
   const [atencionCode, setAtencionCode] = useState('')
   const [isEditing, setIsEditing] = useState(false)
@@ -156,194 +157,186 @@ export const RegisterAtencionPage = () => {
     }
   }
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div className='flex align-center justify-center items-center'>
-      <h2 className='text-2xl mb-4'>
-        {' '}
-        {isEditing ? 'Editar Atencion' : 'Registrar Atencion'}
-      </h2>
-      </div>
-      <div className='flex flex-row flex-wrap sm:flex-nowrap gap-x-8 mt-8'>
-        <div className='w-full sm:w-1/3 p-8  bg-white  rounded-lg shadow-lg animate__animated animate__fadeInUp'>
-          <h2 className='text-xl font-semibold mb-4 text-center'>
-            Datos de contacto
+    <div className='p-4'>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className='flex align-center justify-center items-center'>
+          <h2 className='text-2xl mb-4'>
+            {' '}
+            {isEditing ? 'Editar Atencion' : 'Registrar Atencion'}
           </h2>
-          <input
-            type='text'
-            className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
-            placeholder='Codigo de suministro'
-            {...register('codigo_suministro', { required: true })}
-          />
-
-          <input
-            type='text'
-            className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
-            placeholder='Nombre del usuario'
-            {...register('nombre_cliente', { required: true })}
-          />
-          <input
-            type='text'
-            className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
-            placeholder='Documento de Identidad'
-            {...register('doc_identidad', { required: true })}
-          />
-          <input
-            type='tel'
-            className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
-            placeholder='Celular'
-            {...register('celular', { required: true })}
-          />
-          <input
-            type='email'
-            className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
-            placeholder='Correo'
-            {...register('email')}
-          />
         </div>
+        <div className='flex flex-row flex-wrap sm:flex-nowrap gap-x-8 mt-8'>
+          <FormLayout title='Datos del usuario'>
+            <input
+              type='text'
+              className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
+              placeholder='Codigo de suministro'
+              {...register('codigo_suministro', { required: true })}
+            />
 
-        <div className='w-full sm:w-1/3 p-8  bg-white  rounded-lg shadow-lg animate__animated animate__fadeInUp'>
-          <h2 className='text-xl font-semibold mb-4 text-center'>
-            Datos de registro
-          </h2>
-          <select
-            className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
-            {...register('modalidad', { required: true })}
-          >
-            <option value='PRESENCIAL'>PRESENCIAL</option>
-            <option value='TELEFONO'>TELEFONO</option>
-            <option value='WEB'>WEB</option>
-            <option value='WHATSAPP'>WHATSAPP</option>
-            <option value='FACEBOOK'>FACEBOOK</option>
-          </select>
-          <label>Categoria</label>
-          <select
-            className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
-            {...register('categoria', { required: true })}
-          >
-            <option value=''>Seleccione una categoría</option>
-            {Object.keys(categories).map((category) => (
-              <option key={category} value={category}>
-                {category}
-              </option>
-            ))}
-          </select>
+            <input
+              type='text'
+              className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
+              placeholder='Nombre del usuario'
+              {...register('nombre_cliente', { required: true })}
+            />
+            <input
+              type='text'
+              className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
+              placeholder='Documento de Identidad'
+              {...register('doc_identidad', { required: true })}
+            />
+            <input
+              type='tel'
+              className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
+              placeholder='Celular'
+              {...register('celular', { required: true })}
+            />
+            <input
+              type='email'
+              className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
+              placeholder='Correo'
+              {...register('email')}
+            />
+          </FormLayout>
+          <FormLayout title='Datos de la atencion'>
+            <select
+              className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
+              {...register('modalidad', { required: true })}
+            >
+              <option value='PRESENCIAL'>PRESENCIAL</option>
+              <option value='TELEFONO'>TELEFONO</option>
+              <option value='WEB'>WEB</option>
+              <option value='WHATSAPP'>WHATSAPP</option>
+              <option value='FACEBOOK'>FACEBOOK</option>
+            </select>
+            <label>Categoria</label>
+            <select
+              className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
+              {...register('categoria', { required: true })}
+            >
+              <option value=''>Seleccione una categoría</option>
+              {Object.keys(categories).map((category) => (
+                <option key={category} value={category}>
+                  {category}
+                </option>
+              ))}
+            </select>
 
-          {category && (
-            <>
-              <label>Sub-Categoria</label>
-              <select
-                className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
-                {...register('sub_categoria', { required: true })}
-              >
-                <option value=''>Seleccione una subcategoría</option>
-                {categories[category].subcategories.map((subcategory) => (
-                  <option key={subcategory} value={subcategory}>
-                    {subcategory}
-                  </option>
-                ))}
-              </select>
-            </>
-          )}
-
-          {subcategory && (
-            <>
-              <label>Problema</label>
-              <select
-                className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
-                {...register('problema', { required: true })}
-              >
-                <option value=''>Seleccione un problema</option>
-                {categories[category].problems.map((problem) => (
-                  <option key={problem} value={problem}>
-                    {problem}
-                  </option>
-                ))}
-              </select>
-            </>
-          )}
-          <textarea
-            type='text'
-            className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
-            placeholder='Petitorio'
-            {...register('petitorio', { required: true })}
-          />
-          <div className='flex items-center'>
-            <div className='relative flex-grow mr-4'>
-              <input
-                readOnly
-                // value={atencionCode}
-                type='text'
-                className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
-                placeholder='Numero de Atencion'
-                {...register('numero_atencion', { required: true })}
-              />
-            </div>
-            {!isEditing && (
-              <button
-                type='submit'
-                onClick={generateAtencion}
-                className='block w-auto bg-breaker-bay-500 hover:bg-breaker-bay-600 active:bg-breaker-bay-700 rounded-l px-3 py-3 my-4 text-sm font-medium text-white'
-              >
-                Generar Atencion
-              </button>
+            {category && (
+              <>
+                <label>Sub-Categoria</label>
+                <select
+                  className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
+                  {...register('sub_categoria', { required: true })}
+                >
+                  <option value=''>Seleccione una subcategoría</option>
+                  {categories[category].subcategories.map((subcategory) => (
+                    <option key={subcategory} value={subcategory}>
+                      {subcategory}
+                    </option>
+                  ))}
+                </select>
+              </>
             )}
-          </div>
-          <label>Fecha</label>
-          <input
-            readOnly={!isEditing}
-            type='date'
-            className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
-            value={localDate.toISOString().slice(0, 10)}
-            placeholder='Fecha'
-            {...register('fecha', { required: true })}
-          />
-          <button className='block w-full bg-breaker-bay-500 hover:bg-breaker-bay-600 active:bg-breaker-bay-700 rounded-l px-5 py-3 my-4 text-sm font-medium text-white'>
-            {isEditing ? 'Guardar Cambios' : 'Registrar'}
-          </button>
+
+            {subcategory && (
+              <>
+                <label>Problema</label>
+                <select
+                  className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
+                  {...register('problema', { required: true })}
+                >
+                  <option value=''>Seleccione un problema</option>
+                  {categories[category].problems.map((problem) => (
+                    <option key={problem} value={problem}>
+                      {problem}
+                    </option>
+                  ))}
+                </select>
+              </>
+            )}
+            <textarea
+              type='text'
+              className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
+              placeholder='Petitorio'
+              {...register('petitorio', { required: true })}
+            />
+            <div className='flex items-center'>
+              <div className='relative flex-grow mr-4'>
+                <input
+                  readOnly
+                  // value={atencionCode}
+                  type='text'
+                  className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
+                  placeholder='Numero de Atencion'
+                  {...register('numero_atencion', { required: true })}
+                />
+              </div>
+              {!isEditing && (
+                <button
+                  type='submit'
+                  onClick={generateAtencion}
+                  className='block w-auto bg-breaker-bay-500 hover:bg-breaker-bay-600 active:bg-breaker-bay-700 rounded-l px-3 py-3 my-4 text-sm font-medium text-white'
+                >
+                  Generar Atencion
+                </button>
+              )}
+            </div>
+            <label>Fecha</label>
+            <input
+              readOnly={!isEditing}
+              type='date'
+              className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
+              value={localDate.toISOString().slice(0, 10)}
+              placeholder='Fecha'
+              {...register('fecha', { required: true })}
+            />
+            <button className='block w-full bg-breaker-bay-500 hover:bg-breaker-bay-600 active:bg-breaker-bay-700 rounded-l px-5 py-3 my-4 text-sm font-medium text-white'>
+              {isEditing ? 'Guardar Cambios' : 'Registrar'}
+            </button>
+          </FormLayout>
+
+          <FormLayout title='Datos de ubicacion '>
+            <select
+              className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
+              {...register('departamento', { required: true })}
+            >
+              <option>La Libertad</option>
+            </select>
+
+            <select
+              className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
+              {...register('provincia', { required: true })}
+            >
+              <option>Trujillo</option>
+            </select>
+
+            <select
+              className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
+              {...register('distrito', { required: true })}
+            >
+              <option>El Porvenir</option>
+              <option>Florencia de Mora</option>
+              <option>Huanchaco</option>
+              <option>La Esperanza</option>
+              <option>Laredo</option>
+              <option>Moche</option>
+              <option>Poroto</option>
+              <option>Salaverry</option>
+              <option>Simbal</option>
+              <option>Trujillo</option>
+              <option>Victor Larco Herrera</option>
+            </select>
+            <input
+              type='text'
+              className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
+              placeholder='Direccion del suministro'
+              {...register('direccion', { required: true })}
+            />
+          </FormLayout>
         </div>
-
-        <div className='w-full sm:w-1/3 p-8  bg-white  rounded-lg shadow-lg animate__animated animate__fadeInUp'>
-          <h2 className='text-xl font-semibold mb-4 text-center'>
-            Datos de ubicacion
-          </h2>
-          <select
-            className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
-            {...register('departamento', { required: true })}
-          >
-            <option>La Libertad</option>
-          </select>
-
-          <select
-            className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
-            {...register('provincia', { required: true })}
-          >
-            <option>Trujillo</option>
-          </select>
-
-          <select
-            className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
-            {...register('distrito', { required: true })}
-          >
-            <option>El Porvenir</option>
-            <option>Florencia de Mora</option>
-            <option>Huanchaco</option>
-            <option>La Esperanza</option>
-            <option>Laredo</option>
-            <option>Moche</option>
-            <option>Poroto</option>
-            <option>Salaverry</option>
-            <option>Simbal</option>
-            <option>Trujillo</option>
-            <option>Victor Larco Herrera</option>
-          </select>
-          <input
-            type='text'
-            className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
-            placeholder='Direccion del suministro'
-            {...register('direccion', { required: true })}
-          />
-        </div>
-      </div>
-    </form>
+      </form>
+    </div>
   )
 }

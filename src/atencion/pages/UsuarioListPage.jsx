@@ -10,6 +10,8 @@ export const UsuarioListPage = () => {
   }, [])
 
   return (
-   <UserTable usuarios={usuarios} />
+    <div className='p-4'>
+      <UserTable usuarios={usuarios} />
+    </div>
   )
 }
