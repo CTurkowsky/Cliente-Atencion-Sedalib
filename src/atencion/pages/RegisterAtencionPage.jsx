@@ -11,7 +11,6 @@ export const RegisterAtencionPage = () => {
   const { startSavingAtencion, getAtencion } = useAtencionStore()
   const { user } = useSelector((state) => state.auth)
   const id_usuario = user.id_usuario
-  const modalidad = user.modalidad
   const usedCodes = new Set()
 
   const { id } = useParams()
@@ -82,6 +81,7 @@ export const RegisterAtencionPage = () => {
   }
   const category = watch('categoria')
   const subcategory = watch('sub_categoria')
+  const modalidad = watch('modalidad')
   useEffect(() => {
     const fetchAtencion = async () => {
       const atencionData = await getAtencion(id)
@@ -95,7 +95,6 @@ export const RegisterAtencionPage = () => {
           setValue(field, atencionData[field])
         }
       }
-
       // Establecer el valor de los campos select
       setValue('departamento', atencionData.departamento)
       setValue('provincia', atencionData.provincia)
@@ -104,6 +103,7 @@ export const RegisterAtencionPage = () => {
       setValue('sub_categoria', atencionData.sub_categoria)
       setValue('problema', atencionData.problema)
       setValue('numero_atencion', atencionData.numero_atencion)
+      setValue('modalidad', atencionData.modalidad)
     }
 
     if (id) {
@@ -162,7 +162,7 @@ export const RegisterAtencionPage = () => {
         {isEditing ? 'Editar Atencion' : 'Registrar Atencion'}
       </h2>
       <div className='flex flex-row flex-wrap sm:flex-nowrap gap-x-8 mt-8'>
-        <div className='w-full sm:w-1/3 p-4  bg-white  rounded-lg shadow-lg'>
+        <div className='w-full sm:w-1/3 p-8  bg-white  rounded-lg shadow-lg animate__animated animate__fadeInUp'>
           <h2 className='text-xl font-semibold mb-4 text-center'>
             Datos de contacto
           </h2>
@@ -199,10 +199,20 @@ export const RegisterAtencionPage = () => {
           />
         </div>
 
-        <div className='w-full sm:w-1/3 p-4  bg-white  rounded-lg shadow-lg'>
+        <div className='w-full sm:w-1/3 p-8  bg-white  rounded-lg shadow-lg animate__animated animate__fadeInUp'>
           <h2 className='text-xl font-semibold mb-4 text-center'>
             Datos de registro
           </h2>
+          <select
+            className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
+            {...register('modalidad', { required: true })}
+          >
+            <option value='PRESENCIAL'>PRESENCIAL</option>
+            <option value='TELEFONO'>TELEFONO</option>
+            <option value='VIRTUAL'>VIRTUAL</option>
+            <option value='WHATSAPP'>WHATSAPP</option>
+            <option value='FACEBOOK'>FACEBOOK</option>
+          </select>
           <label>Categoria</label>
           <select
             className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
@@ -255,7 +265,7 @@ export const RegisterAtencionPage = () => {
             placeholder='Petitorio'
             {...register('petitorio', { required: true })}
           />
-          <div className='flex'>
+          <div className='flex items-center'>
             <div className='relative flex-grow mr-4'>
               <input
                 readOnly
@@ -270,7 +280,7 @@ export const RegisterAtencionPage = () => {
               <button
                 type='submit'
                 onClick={generateAtencion}
-                className='block w-auto bg-breaker-bay-500 hover:bg-breaker-bay-600 active:bg-breaker-bay-700 rounded-l px-1 py-1 my-2 text-sm font-medium text-white'
+                className='block w-auto bg-breaker-bay-500 hover:bg-breaker-bay-600 active:bg-breaker-bay-700 rounded-l px-3 py-3 my-4 text-sm font-medium text-white'
               >
                 Generar Atencion
               </button>
@@ -290,7 +300,7 @@ export const RegisterAtencionPage = () => {
           </button>
         </div>
 
-        <div className='w-full sm:w-1/3 p-4  bg-white  rounded-lg shadow-lg'>
+        <div className='w-full sm:w-1/3 p-8  bg-white  rounded-lg shadow-lg animate__animated animate__fadeInUp'>
           <h2 className='text-xl font-semibold mb-4 text-center'>
             Datos de ubicacion
           </h2>
