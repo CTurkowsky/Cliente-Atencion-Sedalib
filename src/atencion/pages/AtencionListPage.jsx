@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useAtencionStore } from '../../hooks'
 import { useForm } from 'react-hook-form'
-// import { saveAs } from 'file-saver'
-// import ExcelJS from 'exceljs'
 import { AttentionTable } from '../../components'
 import { toast } from 'react-toastify'
 import { exportToExcel } from '../../helpers'

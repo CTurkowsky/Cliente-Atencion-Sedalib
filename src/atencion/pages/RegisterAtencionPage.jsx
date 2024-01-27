@@ -1,14 +1,24 @@
 import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useSelector } from 'react-redux'
-import { useAtencionStore } from '../../hooks'
+import { useAtencionStore, useAttentionValidationSchema } from '../../hooks'
 import { useNavigate, useParams } from 'react-router-dom'
 import { FormLayout } from '../layout/FormLayout'
+import { yupResolver } from '@hookform/resolvers/yup'
 export const RegisterAtencionPage = () => {
   const [atencionCode, setAtencionCode] = useState('')
   const [isEditing, setIsEditing] = useState(false)
   const { activeAtencion } = useSelector((state) => state.atencion)
-  const { register, handleSubmit, reset, setValue, watch } = useForm()
+
+  const validationSchema = useAttentionValidationSchema()
+  const {
+    register,
+    handleSubmit,
+    reset,
+    setValue,
+    watch,
+    formState: { errors }
+  } = useForm({ resolver: yupResolver(validationSchema) })
   const { startSavingAtencion, getAtencion } = useAtencionStore()
   const { user } = useSelector((state) => state.auth)
   const id_usuario = user.id_usuario
@@ -162,26 +172,65 @@ export const RegisterAtencionPage = () => {
         <div className='flex align-center justify-center items-center'>
           <h2 className='text-2xl mb-4'>
             {' '}
-            {isEditing ? 'Editar Atencion' : 'Registrar Atencion'}
+            {isEditing ? 'Editar Atención' : 'Registrar Atención'}
           </h2>
         </div>
         <div className='flex flex-row flex-wrap sm:flex-nowrap gap-x-8 mt-8'>
           <FormLayout title='Datos del usuario'>
             <input
-              type='text'
+              type='number'
               className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
               placeholder='Codigo de suministro'
               {...register('codigo_suministro', { required: true })}
             />
-
+            {errors.codigo_suministro && (
+              <div
+                className='flex bg-red-100 rounded-lg p-4 mb-4 text-sm text-red-700'
+                role='alert'
+              >
+                <svg
+                  className='w-5 h-5 inline mr-3'
+                  fill='currentColor'
+                  viewBox='0 0 20 20'
+                  xmlns='http://www.w3.org/2000/svg'
+                >
+                  <path
+                    fillRule='evenodd'
+                    d='M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z'
+                    clipRule='evenodd'
+                  ></path>
+                </svg>
+                <div>{errors.codigo_suministro.message}</div>
+              </div>
+            )}
             <input
               type='text'
               className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
               placeholder='Nombre del usuario'
               {...register('nombre_cliente', { required: true })}
             />
+                 {errors.nombre && (
+              <div
+                className='flex bg-red-100 rounded-lg p-4 mb-4 text-sm text-red-700'
+                role='alert'
+              >
+                <svg
+                  className='w-5 h-5 inline mr-3'
+                  fill='currentColor'
+                  viewBox='0 0 20 20'
+                  xmlns='http://www.w3.org/2000/svg'
+                >
+                  <path
+                    fillRule='evenodd'
+                    d='M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z'
+                    clipRule='evenodd'
+                  ></path>
+                </svg>
+                <div>{errors.nombre.message}</div>
+              </div>
+                 )}
             <input
-              type='text'
+              type='number'
               className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
               placeholder='Documento de Identidad'
               {...register('doc_identidad', { required: true })}
@@ -266,8 +315,7 @@ export const RegisterAtencionPage = () => {
               <div className='relative flex-grow mr-4'>
                 <input
                   readOnly
-                  // value={atencionCode}
-                  type='text'
+                  type='number'
                   className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
                   placeholder='Numero de Atencion'
                   {...register('numero_atencion', { required: true })}

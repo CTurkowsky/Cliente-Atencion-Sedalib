@@ -25,7 +25,7 @@ export const SideBar = ({ children }) => {
     setAsideOpen(!isSmallScreen)
   }, [isSmallScreen])
   return (
-    <main className='h-screen w-full bg-gray-50 text-gray-700'>
+    <main className='h-screen w-full bg-white text-gray-700'>
       <header className='flex w-full items-center justify-between border-b-3 border-gray-200 text-white bg-breaker-bay-600 p-2'>
         <div className='flex items-center space-x-2'>
           <button
@@ -36,7 +36,7 @@ export const SideBar = ({ children }) => {
             <Menu />
           </button>
           <div>
-            <span className='font-medium'>Gestion de Atenciones - Dlaborum - </span>
+            <span className='font-medium'>Gestioón de Atenciones - Delaborum - </span>
             {user.nombre + ' ' + user.apellidos}
           </div>
         </div>
@@ -103,7 +103,7 @@ export const SideBar = ({ children }) => {
             <span className='text-2xl'>
               <LogOut />
             </span>
-            <span>Cerrar Sesion</span>
+            <span>Cerrar Sesión</span>
           </button>
         </aside>
         <div className='w-full  overflow-auto overflow-y-auto'>{children}</div>

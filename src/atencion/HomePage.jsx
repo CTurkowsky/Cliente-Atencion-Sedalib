@@ -2,21 +2,33 @@ import { NavLink } from 'react-router-dom'
 
 export const HomePage = () => {
   return (
-    <div className='flex flex-col items-center justify-center h-screen transition-all duration-500 ease-in-out opacity-0 animate-fadeIn'>
-      <div className='p-8 text-center animate__animated animate__fadeInUp'>
-        <h1 className='text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-4xl font-medium mb-4 animate-pulse'>
-          Bienvenido a Gestion de Atenciones 📞
+    <div className='flex flex-row justify-center items-center h-screen'>
+      <div className='w-1/2 text-center p-10'>
+        <h1 className='text-4xl font-medium mb-4'>
+          Bienvenido a Gestión de Atenciones
         </h1>
-        <p className='text-sm sm:text-base md:text-lg lg:text-xl mb-8'>
-          Buen inicio de turno
+        <p className='text-xl animate-pulse'>
+          Esperamos lo mejor de ti en este turno
         </p>
-        <div className='flex items-center justify-center'>
+        <div className='flex align-middle justify-center'>
           <NavLink to='/registrar-atencion'>
-            <button className='px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-4 bg-breaker-bay-400 text-white font-bold rounded-full hover:bg-breaker-bay-200 transition duration-300 ease-in-out flex items-center animate-bounce hover:translate-y-1 transform hover:shadow-lg hover:text-black'>
-              Comienza ahora
+            <button
+              type='button'
+              className='block w-auto bg-breaker-bay-500 hover:bg-breaker-bay-600 active:bg-breaker-bay-700 rounded-l px-3 py-3 my-4 text-sm font-medium text-white'
+            >
+              Atender llamada
             </button>
           </NavLink>
         </div>
+      </div>
+      <div className='w-1/2'>
+        <img className='w-full h-auto' src='/call.svg' alt='Call Center' />
+        <p className='text-center'>
+          Image by{' '}
+          <a href='https://www.freepik.com/free-vector/customer-support-flat-design-illustration_12983846.htm#query=call%20center&position=3&from_view=search&track=ais&uuid=8b3c547c-30ff-45f5-98ae-99685dcfd962'>
+            Freepik
+          </a>
+        </p>
       </div>
     </div>
   )
