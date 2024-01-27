@@ -248,7 +248,7 @@ export const RegisterAtencionPage = () => {
               {...register('email')}
             />
           </FormLayout>
-          <FormLayout title='Datos de la atencion'>
+          <FormLayout title='Datos de la atención'>
             <select
               className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
               {...register('modalidad', { required: true })}
@@ -327,7 +327,7 @@ export const RegisterAtencionPage = () => {
                   onClick={generateAtencion}
                   className='block w-auto bg-breaker-bay-500 hover:bg-breaker-bay-600 active:bg-breaker-bay-700 rounded-l px-3 py-3 my-4 text-sm font-medium text-white'
                 >
-                  Generar Atencion
+                  Generar Atención
                 </button>
               )}
             </div>
