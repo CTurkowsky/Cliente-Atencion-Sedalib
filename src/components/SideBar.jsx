@@ -106,7 +106,8 @@ export const SideBar = ({ children }) => {
             <span>Cerrar Sesión</span>
           </button>
         </aside>
-        <div className='w-full  overflow-auto overflow-y-auto'>{children}</div>
+        <div className='w-full  overflow-auto overflow-y-auto'>{children}
+        </div>
       </div>
     </main>
   )
