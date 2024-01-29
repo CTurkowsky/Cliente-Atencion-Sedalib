@@ -49,7 +49,7 @@ export const useUsuarioStore = () => {
         theme: 'colored'
       })
     } catch (error) {
-      toast.error('Ocurrio un error!', {
+      toast.error(`Ocurrio un error!: ${error.response.data.msg}`, {
         position: 'bottom-right',
         autoClose: 5000,
         hideProgressBar: false,

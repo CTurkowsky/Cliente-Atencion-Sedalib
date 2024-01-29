@@ -27,7 +27,7 @@ export const useAtencionStore = () => {
         await atencionApi.put(`atenciones/${atencion.id_atencion}`, atencion)
         dispatch(onUpdateAtencion({ ...atencion }))
         dispatch(onSetActiveAtencion(null))
-        toast.success('Se ha registrado un nueva atencion !', {
+        toast.success('Se ha editado la atencion !', {
           position: 'bottom-right',
           autoClose: 5000,
           hideProgressBar: false,
@@ -46,7 +46,7 @@ export const useAtencionStore = () => {
           id_atencion: data.atencion.id_atencion
         })
       )
-      toast.success('Se ha editado un nueva atencion', {
+      toast.success('Se ha registrado una nueva atencion', {
         position: 'bottom-right',
         autoClose: 5000,
         hideProgressBar: false,

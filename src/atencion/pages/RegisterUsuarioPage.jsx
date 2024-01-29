@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { AuthLayout } from '../../auth/layout/AuthLayout'
-import { toast } from 'react-toastify'
 export const RegisterUsuarioPage = () => {
   const { startSavingUsuario, getUsuario } = useUsuarioStore()
   const [isEditing, setIsEditing] = useState(false)
@@ -45,16 +44,6 @@ export const RegisterUsuarioPage = () => {
       startSavingUsuario(data)
       reset()
     } catch (error) {
-      toast.error(`Ocurrio un error: ${error}`, {
-        position: 'bottom-right',
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'colored'
-      })
       console.error(error)
     }
   }

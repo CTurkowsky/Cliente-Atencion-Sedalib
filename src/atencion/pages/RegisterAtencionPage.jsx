@@ -8,7 +8,8 @@ import { yupResolver } from '@hookform/resolvers/yup'
 export const RegisterAtencionPage = () => {
   const [atencionCode, setAtencionCode] = useState('')
   const [isEditing, setIsEditing] = useState(false)
-  const { activeAtencion } = useSelector((state) => state.atencion)
+  const [selectedCategory, setSelectedCategory] = useState(null)
+  const [selectedSubcategory, setSelectedSubcategory] = useState(null)
 
   const validationSchema = useAttentionValidationSchema()
   const {
@@ -16,7 +17,7 @@ export const RegisterAtencionPage = () => {
     handleSubmit,
     reset,
     setValue,
-    watch,
+    // watch,
     formState: { errors }
   } = useForm({ resolver: yupResolver(validationSchema) })
   const { startSavingAtencion, getAtencion } = useAtencionStore()
@@ -90,12 +91,25 @@ export const RegisterAtencionPage = () => {
       problems: ['COMERCIAL']
     }
   }
-  const category = watch('categoria')
-  const subcategory = watch('sub_categoria')
-  const modalidad = watch('modalidad')
+  const [atencionData, setAtencionData] = useState(null)
+  const [isDataLoaded, setIsDataLoaded] = useState(false)
+
   useEffect(() => {
     const fetchAtencion = async () => {
-      const atencionData = await getAtencion(id)
+      const data = await getAtencion(id)
+      setAtencionData(data)
+    }
+
+    if (id) {
+      fetchAtencion()
+      setIsEditing(true)
+    } else {
+      setIsEditing(false)
+    }
+  }, [id, getAtencion])
+
+  useEffect(() => {
+    if (atencionData && !isDataLoaded) {
       for (const field in atencionData) {
         if (field === 'fecha') {
           setValue(
@@ -106,24 +120,49 @@ export const RegisterAtencionPage = () => {
           setValue(field, atencionData[field])
         }
       }
-      // Establecer el valor de los campos select
-      setValue('departamento', atencionData.departamento)
-      setValue('provincia', atencionData.provincia)
-      setValue('distrito', atencionData.distrito)
-      setValue('categoria', atencionData.categoria)
-      setValue('sub_categoria', atencionData.sub_categoria)
-      setValue('problema', atencionData.problema)
-      setValue('numero_atencion', atencionData.numero_atencion)
-      setValue('modalidad', atencionData.modalidad)
+      setSelectedCategory(atencionData.categoria)
+      setSelectedSubcategory(atencionData.sub_categoria)
+      setIsDataLoaded(true)
     }
+  }, [atencionData, setValue, isDataLoaded])
 
-    if (id) {
-      setIsEditing(true)
-      fetchAtencion()
-    } else {
-      setIsEditing(false)
-    }
-  }, [id, getAtencion, setValue])
+  // const category = watch('categoria')
+  // const subcategory = watch('sub_categoria')
+  // const modalidad = watch('modalidad')
+  // useEffect(() => {
+  //   const fetchAtencion = async () => {
+  //     const atencionData = await getAtencion(id)
+  //     for (const field in atencionData) {
+  //       if (field === 'fecha') {
+  //         setValue(
+  //           field,
+  //           new Date(atencionData[field]).toISOString().slice(0, 10)
+  //         )
+  //       } else {
+  //         setValue(field, atencionData[field])
+  //       }
+  //     }
+  //     // Establecer el valor de los campos select
+  //     setValue('departamento', atencionData.departamento)
+  //     setValue('provincia', atencionData.provincia)
+  //     setValue('distrito', atencionData.distrito)
+  //     setValue('categoria', atencionData.categoria)
+  //     setValue('sub_categoria', atencionData.sub_categoria)
+  //     setValue('problema', atencionData.problema)
+  //     setValue('numero_atencion', atencionData.numero_atencion)
+  //     setValue('modalidad', atencionData.modalidad)
+
+  //     setSelectedCategory(atencionData.categoria)
+  //     setSelectedSubcategory(atencionData.sub_categoria)
+  //   }
+
+  //   if (id) {
+  //     fetchAtencion()
+  //     setIsEditing(true)
+  //   } else {
+  //     setIsEditing(false)
+  //   }
+  // }, [id, getAtencion])
 
   const generateAtencion = (event) => {
     event.preventDefault()
@@ -147,13 +186,12 @@ export const RegisterAtencionPage = () => {
   const onSubmit = async (data) => {
     const newData = {
       ...data,
-      id_usuario,
-      modalidad
+      id_usuario
     }
 
     try {
       if (isEditing) {
-        await startSavingAtencion({ activeAtencion, ...newData })
+        await startSavingAtencion(newData)
         reset()
         navigate('/listar')
       } else {
@@ -328,6 +366,13 @@ export const RegisterAtencionPage = () => {
             <select
               className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
               {...register('categoria', { required: true })}
+              value={selectedCategory}
+              onChange={(e) => {
+                setSelectedCategory(e.target.value)
+                setSelectedSubcategory('')
+                setValue('sub_categoria', '')
+                setValue('problema', '')
+              }}
             >
               <option value=''>Seleccione una categoría</option>
               {Object.keys(categories).map((category) => (
@@ -336,98 +381,48 @@ export const RegisterAtencionPage = () => {
                 </option>
               ))}
             </select>
-            {errors.categoria && (
-              <div
-                className='flex bg-red-100 rounded-lg p-4 mb-4 text-sm text-red-700'
-                role='alert'
-              >
-                <svg
-                  className='w-5 h-5 inline mr-3'
-                  fill='currentColor'
-                  viewBox='0 0 20 20'
-                  xmlns='http://www.w3.org/2000/svg'
-                >
-                  <path
-                    fillRule='evenodd'
-                    d='M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z'
-                    clipRule='evenodd'
-                  ></path>
-                </svg>
-                <div>{errors.categoria.message}</div>
-              </div>
-            )}
-            {category && (
-              <>
-                <label>Sub-Categoria</label>
-                <select
-                  className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
-                  {...register('sub_categoria', { required: true })}
-                >
-                  <option value=''>Seleccione una subcategoría</option>
-                  {categories[category].subcategories.map((subcategory) => (
-                    <option key={subcategory} value={subcategory}>
-                      {subcategory}
-                    </option>
-                  ))}
-                </select>
-                {errors.sub_categoria && (
-                  <div
-                    className='flex bg-red-100 rounded-lg p-4 mb-4 text-sm text-red-700'
-                    role='alert'
+            {(isEditing || selectedCategory) &&
+              categories[selectedCategory] && (
+                <>
+                  <label>Sub-Categoria</label>
+                  <select
+                    className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
+                    {...register('sub_categoria', { required: true })}
+                    value={selectedSubcategory}
+                    onChange={(e) => {
+                      setSelectedSubcategory(e.target.value)
+                      setValue('problema', '')
+                    }}
                   >
-                    <svg
-                      className='w-5 h-5 inline mr-3'
-                      fill='currentColor'
-                      viewBox='0 0 20 20'
-                      xmlns='http://www.w3.org/2000/svg'
-                    >
-                      <path
-                        fillRule='evenodd'
-                        d='M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z'
-                        clipRule='evenodd'
-                      ></path>
-                    </svg>
-                    <div>{errors.sub_categoria.message}</div>
-                  </div>
-                )}
-              </>
+                    <option value=''>Seleccione una subcategoría</option>
+                    {categories[selectedCategory].subcategories.map(
+                      (subcategory) => (
+                        <option key={subcategory} value={subcategory}>
+                          {subcategory}
+                        </option>
+                      )
+                    )}
+                  </select>
+                </>
             )}
 
-            {subcategory && (
-              <>
-                <label>Problema</label>
-                <select
-                  className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
-                  {...register('problema', { required: true })}
-                >
-                  <option value=''>Seleccione un problema</option>
-                  {categories[category].problems.map((problem) => (
-                    <option key={problem} value={problem}>
-                      {problem}
-                    </option>
-                  ))}
-                </select>
-                {errors.problema && (
-                  <div
-                    className='flex bg-red-100 rounded-lg p-4 mb-4 text-sm text-red-700'
-                    role='alert'
+            {(isEditing || selectedSubcategory) &&
+              categories[selectedCategory] && (
+                <>
+                  <label>Problema</label>
+                  <select
+                    className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
+                    {...register('problema', { required: true })}
+                    onChange={(e) => setValue('problema', e.target.value)}
                   >
-                    <svg
-                      className='w-5 h-5 inline mr-3'
-                      fill='currentColor'
-                      viewBox='0 0 20 20'
-                      xmlns='http://www.w3.org/2000/svg'
-                    >
-                      <path
-                        fillRule='evenodd'
-                        d='M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z'
-                        clipRule='evenodd'
-                      ></path>
-                    </svg>
-                    <div>{errors.problema.message}</div>
-                  </div>
-                )}
-              </>
+                    <option value=''>Seleccione un problema</option>
+                    {categories[selectedCategory].problems.map((problem) => (
+                      <option key={problem} value={problem}>
+                        {problem}
+                      </option>
+                    ))}
+                  </select>
+                </>
             )}
             <textarea
               type='text'
@@ -493,8 +488,7 @@ export const RegisterAtencionPage = () => {
             <select
               className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
               {...register('departamento', { required: true })}
-
-          defaultValue='Seleccione un departamento'
+              defaultValue='Seleccione un departamento'
             >
               <option value='Seleccione un departamento' disabled>
                 SELECCIONE UN DEPARTAMENTO
@@ -524,7 +518,7 @@ export const RegisterAtencionPage = () => {
             <select
               className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
               {...register('provincia', { required: true })}
-          defaultValue='Seleccione una provincia'
+              defaultValue='Seleccione una provincia'
             >
               <option value='Seleccione una provincia' disabled>
                 SELECCIONE UNA PROVINCIA
@@ -554,7 +548,7 @@ export const RegisterAtencionPage = () => {
             <select
               className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
               {...register('distrito', { required: true })}
-          defaultValue='Seleccione un distrito'
+              defaultValue='Seleccione un distrito'
             >
               <option value='Seleccione un distrito' disabled>
                 SELECCIONE UNA DISTRITO
