@@ -1,6 +1,7 @@
 import { useSelector } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { useAtencionStore } from '../hooks'
+import { PDFButton } from './PDFButton'
 export const AttentionTable = ({ atenciones }) => {
   const { user } = useSelector((state) => state.auth)
   const { startDeletingAtencion } = useAtencionStore()
@@ -94,11 +95,11 @@ export const AttentionTable = ({ atenciones }) => {
               >
                 Sub Categoria
               </th>
-               <th
+              <th
                 scope='col'
                 className='px-6 bg-blueGray-50 text-blueGray-500 align-middle border border-solid border-blueGray-100 py-3 text-xs uppercase border-l-0 border-r-0 whitespace-nowrap font-semibold text-center'
               >
-               Problema
+                Problema
               </th>
               <th
                 scope='col'
@@ -152,7 +153,10 @@ export const AttentionTable = ({ atenciones }) => {
                 fecha,
                 id_usuario
               }) => (
-                <tr key={id_atencion} className='hover:bg-gray-100 transition-colors duration-200'>
+                <tr
+                  key={id_atencion}
+                  className='hover:bg-gray-100 transition-colors duration-200'
+                >
                   <th
                     scope='row'
                     className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center text-blueGray-700'
@@ -237,7 +241,7 @@ export const AttentionTable = ({ atenciones }) => {
                   >
                     {sub_categoria}
                   </th>
-                    <th
+                  <th
                     scope='row'
                     className='border-t-0 px-6 align-middle border-l-0 border-r-0 text-xs whitespace-nowrap p-4 text-center text-blueGray-700'
                   >
@@ -263,9 +267,11 @@ export const AttentionTable = ({ atenciones }) => {
                   </th>
                   {user.rol === 'admin'
                     ? (
-                    <td className='px-6 py-4 whitespace-nowrap text-center text-sm font-medium'>
+                    <td className='flex justify-center px-6 py-4 whitespace-nowrap text-center text-sm font-medium'>
                       <button className='middle none center rounded-lg bg-orange-500 py-2 px-4 font-sans text-xs font-bold uppercase text-white shadow-md shadow-orange-500/20 transition-all hover:shadow-lg hover:shadow-orange-500/40 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none mr-4'>
-                        <NavLink to={`/editar-atencion/${id_atencion}`}>Editar</NavLink>
+                        <NavLink to={`/editar-atencion/${id_atencion}`}>
+                          Editar
+                        </NavLink>
                       </button>
                       <button
                         onClick={() => startDeletingAtencion(id_atencion)}
@@ -273,6 +279,28 @@ export const AttentionTable = ({ atenciones }) => {
                       >
                         Eliminar
                       </button>
+                      <PDFButton
+                        atencion={{
+                          id_atencion,
+                          numero_atencion,
+                          codigo_suministro,
+                          departamento,
+                          provincia,
+                          distrito,
+                          direccion,
+                          nombre_cliente,
+                          celular,
+                          email,
+                          doc_identidad,
+                          modalidad,
+                          categoria,
+                          sub_categoria,
+                          problema,
+                          petitorio,
+                          fecha,
+                          id_usuario
+                        }}
+                      />
                     </td>
                       )
                     : null}

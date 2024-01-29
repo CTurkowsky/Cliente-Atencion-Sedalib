@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
+    "@react-pdf/renderer": "^3.3.4",
     "@reduxjs/toolkit": "^2.0.1",
     "axios": "^1.6.5",
     "exceljs": "^4.4.0",

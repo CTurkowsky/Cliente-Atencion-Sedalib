@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { AuthLayout } from '../../auth/layout/AuthLayout'
+import { toast } from 'react-toastify'
 export const RegisterUsuarioPage = () => {
   const { startSavingUsuario, getUsuario } = useUsuarioStore()
   const [isEditing, setIsEditing] = useState(false)
@@ -44,6 +45,16 @@ export const RegisterUsuarioPage = () => {
       startSavingUsuario(data)
       reset()
     } catch (error) {
+      toast.error(`Ocurrio un error: ${error}`, {
+        position: 'bottom-right',
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: 'colored'
+      })
       console.error(error)
     }
   }
@@ -157,16 +168,17 @@ export const RegisterUsuarioPage = () => {
             <div>{errors.password.message}</div>
           </div>
         )}
-        <div className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'>
-          <label>Modalidad</label>
-          <select
-            className=' w-full rounded-lg border-gray-200 p-4 pe-12 text-sm shadow-sm'
-            {...register('modalidad')}
-          >
-            <option value='telefono'>Telefono</option>
-            <option value='rrss'>RRSS</option>
-          </select>
-        </div>
+        <select
+          className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
+          {...register('modalidad', { required: true })}
+          defaultValue='Seleccione una modalidad'
+        >
+          <option value='Seleccione una modalidad' disabled>
+            SELECCIONE UNA MODALIDAD
+          </option>
+          <option value='TELEFONO'>TELEFONO</option>
+          <option value='RRSS'>RRSS</option>
+        </select>
         {errors.modalidad && (
           <div
             className='flex bg-red-100 rounded-lg p-4 mb-4 text-sm text-red-700'

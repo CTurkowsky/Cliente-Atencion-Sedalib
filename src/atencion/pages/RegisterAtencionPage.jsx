@@ -209,7 +209,7 @@ export const RegisterAtencionPage = () => {
               placeholder='Nombre del usuario'
               {...register('nombre_cliente', { required: true })}
             />
-                 {errors.nombre && (
+            {errors.nombre_cliente && (
               <div
                 className='flex bg-red-100 rounded-lg p-4 mb-4 text-sm text-red-700'
                 role='alert'
@@ -226,21 +226,61 @@ export const RegisterAtencionPage = () => {
                     clipRule='evenodd'
                   ></path>
                 </svg>
-                <div>{errors.nombre.message}</div>
+                <div>{errors.nombre_cliente.message}</div>
               </div>
-                 )}
+            )}
             <input
               type='number'
               className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
               placeholder='Documento de Identidad'
               {...register('doc_identidad', { required: true })}
             />
+            {errors.doc_identidad && (
+              <div
+                className='flex bg-red-100 rounded-lg p-4 mb-4 text-sm text-red-700'
+                role='alert'
+              >
+                <svg
+                  className='w-5 h-5 inline mr-3'
+                  fill='currentColor'
+                  viewBox='0 0 20 20'
+                  xmlns='http://www.w3.org/2000/svg'
+                >
+                  <path
+                    fillRule='evenodd'
+                    d='M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z'
+                    clipRule='evenodd'
+                  ></path>
+                </svg>
+                <div>{errors.doc_identidad.message}</div>
+              </div>
+            )}
             <input
               type='tel'
               className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
               placeholder='Celular'
               {...register('celular', { required: true })}
             />
+            {errors.celular && (
+              <div
+                className='flex bg-red-100 rounded-lg p-4 mb-4 text-sm text-red-700'
+                role='alert'
+              >
+                <svg
+                  className='w-5 h-5 inline mr-3'
+                  fill='currentColor'
+                  viewBox='0 0 20 20'
+                  xmlns='http://www.w3.org/2000/svg'
+                >
+                  <path
+                    fillRule='evenodd'
+                    d='M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z'
+                    clipRule='evenodd'
+                  ></path>
+                </svg>
+                <div>{errors.celular.message}</div>
+              </div>
+            )}
             <input
               type='email'
               className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
@@ -252,13 +292,38 @@ export const RegisterAtencionPage = () => {
             <select
               className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
               {...register('modalidad', { required: true })}
+              defaultValue='Seleccione una modalidad'
             >
+              <option value='Seleccione una modalidad' disabled>
+                SELECCIONE UNA OPCIÓN
+              </option>
+              <option value='CORREO ELECTRONICO'>CORREO ELECTRONICO</option>
+              <option value='FACEBOOK'>FACEBOOK</option>
               <option value='PRESENCIAL'>PRESENCIAL</option>
               <option value='TELEFONO'>TELEFONO</option>
               <option value='WEB'>WEB</option>
               <option value='WHATSAPP'>WHATSAPP</option>
-              <option value='FACEBOOK'>FACEBOOK</option>
             </select>
+            {errors.modalidad && (
+              <div
+                className='flex bg-red-100 rounded-lg p-4 mb-4 text-sm text-red-700'
+                role='alert'
+              >
+                <svg
+                  className='w-5 h-5 inline mr-3'
+                  fill='currentColor'
+                  viewBox='0 0 20 20'
+                  xmlns='http://www.w3.org/2000/svg'
+                >
+                  <path
+                    fillRule='evenodd'
+                    d='M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z'
+                    clipRule='evenodd'
+                  ></path>
+                </svg>
+                <div>{errors.modalidad.message}</div>
+              </div>
+            )}
             <label>Categoria</label>
             <select
               className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
@@ -271,7 +336,26 @@ export const RegisterAtencionPage = () => {
                 </option>
               ))}
             </select>
-
+            {errors.categoria && (
+              <div
+                className='flex bg-red-100 rounded-lg p-4 mb-4 text-sm text-red-700'
+                role='alert'
+              >
+                <svg
+                  className='w-5 h-5 inline mr-3'
+                  fill='currentColor'
+                  viewBox='0 0 20 20'
+                  xmlns='http://www.w3.org/2000/svg'
+                >
+                  <path
+                    fillRule='evenodd'
+                    d='M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z'
+                    clipRule='evenodd'
+                  ></path>
+                </svg>
+                <div>{errors.categoria.message}</div>
+              </div>
+            )}
             {category && (
               <>
                 <label>Sub-Categoria</label>
@@ -286,6 +370,26 @@ export const RegisterAtencionPage = () => {
                     </option>
                   ))}
                 </select>
+                {errors.sub_categoria && (
+                  <div
+                    className='flex bg-red-100 rounded-lg p-4 mb-4 text-sm text-red-700'
+                    role='alert'
+                  >
+                    <svg
+                      className='w-5 h-5 inline mr-3'
+                      fill='currentColor'
+                      viewBox='0 0 20 20'
+                      xmlns='http://www.w3.org/2000/svg'
+                    >
+                      <path
+                        fillRule='evenodd'
+                        d='M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z'
+                        clipRule='evenodd'
+                      ></path>
+                    </svg>
+                    <div>{errors.sub_categoria.message}</div>
+                  </div>
+                )}
               </>
             )}
 
@@ -303,6 +407,26 @@ export const RegisterAtencionPage = () => {
                     </option>
                   ))}
                 </select>
+                {errors.problema && (
+                  <div
+                    className='flex bg-red-100 rounded-lg p-4 mb-4 text-sm text-red-700'
+                    role='alert'
+                  >
+                    <svg
+                      className='w-5 h-5 inline mr-3'
+                      fill='currentColor'
+                      viewBox='0 0 20 20'
+                      xmlns='http://www.w3.org/2000/svg'
+                    >
+                      <path
+                        fillRule='evenodd'
+                        d='M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z'
+                        clipRule='evenodd'
+                      ></path>
+                    </svg>
+                    <div>{errors.problema.message}</div>
+                  </div>
+                )}
               </>
             )}
             <textarea
@@ -311,6 +435,26 @@ export const RegisterAtencionPage = () => {
               placeholder='Petitorio'
               {...register('petitorio', { required: true })}
             />
+            {errors.petitorio && (
+              <div
+                className='flex bg-red-100 rounded-lg p-4 mb-4 text-sm text-red-700'
+                role='alert'
+              >
+                <svg
+                  className='w-5 h-5 inline mr-3'
+                  fill='currentColor'
+                  viewBox='0 0 20 20'
+                  xmlns='http://www.w3.org/2000/svg'
+                >
+                  <path
+                    fillRule='evenodd'
+                    d='M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z'
+                    clipRule='evenodd'
+                  ></path>
+                </svg>
+                <div>{errors.petitorio.message}</div>
+              </div>
+            )}
             <div className='flex items-center'>
               <div className='relative flex-grow mr-4'>
                 <input
@@ -349,21 +493,72 @@ export const RegisterAtencionPage = () => {
             <select
               className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
               {...register('departamento', { required: true })}
+
+          defaultValue='Seleccione un departamento'
             >
+              <option value='Seleccione un departamento' disabled>
+                SELECCIONE UN DEPARTAMENTO
+              </option>
               <option>La Libertad</option>
             </select>
-
+            {errors.departamento && (
+              <div
+                className='flex bg-red-100 rounded-lg p-4 mb-4 text-sm text-red-700'
+                role='alert'
+              >
+                <svg
+                  className='w-5 h-5 inline mr-3'
+                  fill='currentColor'
+                  viewBox='0 0 20 20'
+                  xmlns='http://www.w3.org/2000/svg'
+                >
+                  <path
+                    fillRule='evenodd'
+                    d='M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z'
+                    clipRule='evenodd'
+                  ></path>
+                </svg>
+                <div>{errors.departamento.message}</div>
+              </div>
+            )}
             <select
               className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
               {...register('provincia', { required: true })}
+          defaultValue='Seleccione una provincia'
             >
+              <option value='Seleccione una provincia' disabled>
+                SELECCIONE UNA PROVINCIA
+              </option>
               <option>Trujillo</option>
             </select>
-
+            {errors.provincia && (
+              <div
+                className='flex bg-red-100 rounded-lg p-4 mb-4 text-sm text-red-700'
+                role='alert'
+              >
+                <svg
+                  className='w-5 h-5 inline mr-3'
+                  fill='currentColor'
+                  viewBox='0 0 20 20'
+                  xmlns='http://www.w3.org/2000/svg'
+                >
+                  <path
+                    fillRule='evenodd'
+                    d='M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z'
+                    clipRule='evenodd'
+                  ></path>
+                </svg>
+                <div>{errors.provincia.message}</div>
+              </div>
+            )}
             <select
               className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
               {...register('distrito', { required: true })}
+          defaultValue='Seleccione un distrito'
             >
+              <option value='Seleccione un distrito' disabled>
+                SELECCIONE UNA DISTRITO
+              </option>
               <option>El Porvenir</option>
               <option>Florencia de Mora</option>
               <option>Huanchaco</option>
@@ -376,12 +571,52 @@ export const RegisterAtencionPage = () => {
               <option>Trujillo</option>
               <option>Victor Larco Herrera</option>
             </select>
+            {errors.distrito && (
+              <div
+                className='flex bg-red-100 rounded-lg p-4 mb-4 text-sm text-red-700'
+                role='alert'
+              >
+                <svg
+                  className='w-5 h-5 inline mr-3'
+                  fill='currentColor'
+                  viewBox='0 0 20 20'
+                  xmlns='http://www.w3.org/2000/svg'
+                >
+                  <path
+                    fillRule='evenodd'
+                    d='M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z'
+                    clipRule='evenodd'
+                  ></path>
+                </svg>
+                <div>{errors.distrito.message}</div>
+              </div>
+            )}
             <input
               type='text'
               className='w-full border rounded-lg text-gray-700 p-4 my-4 pe-12 text-sm shadow-sm'
               placeholder='Direccion del suministro'
               {...register('direccion', { required: true })}
             />
+            {errors.direccion && (
+              <div
+                className='flex bg-red-100 rounded-lg p-4 mb-4 text-sm text-red-700'
+                role='alert'
+              >
+                <svg
+                  className='w-5 h-5 inline mr-3'
+                  fill='currentColor'
+                  viewBox='0 0 20 20'
+                  xmlns='http://www.w3.org/2000/svg'
+                >
+                  <path
+                    fillRule='evenodd'
+                    d='M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z'
+                    clipRule='evenodd'
+                  ></path>
+                </svg>
+                <div>{errors.direccion.message}</div>
+              </div>
+            )}
           </FormLayout>
         </div>
       </form>
